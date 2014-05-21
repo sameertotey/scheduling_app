@@ -1,5 +1,6 @@
 source 'https://rubygems.org'
 
+ruby '2.1.1'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.1.1'
@@ -30,11 +31,34 @@ gem 'spring',        group: :development
 # gem 'bcrypt', '~> 3.1.7'
 
 # Use unicorn as the app server
-# gem 'unicorn'
+gem 'unicorn'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
 # Use debugger
 # gem 'debugger', group: [:development, :test]
+
+gem 'pg'
+gem 'bootstrap-sass'
+gem 'devise'
+gem 'haml'
+gem 'figaro'
+gem 'omniauth-facebook'
+gem 'omniauth-twitter'
+group :development do
+  gem 'pry'
+end
+group :development, :test do
+  gem 'factory_girl_rails'
+  gem 'rspec-rails', '>= 3.0.0.rc1'
+end
+group :test do
+  gem 'capybara'
+  gem 'database_cleaner'
+  gem 'shoulda-matchers'
+  gem 'faker'
+  gem 'launchy'
+  gem 'selenium-webdriver'
+end
 
