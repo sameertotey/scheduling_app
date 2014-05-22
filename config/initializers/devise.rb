@@ -4,13 +4,13 @@ Devise.setup do |config|
   # The secret key used by Devise. Devise uses this key to generate
   # random tokens. Changing this key will render invalid all existing
   # confirmation, reset password and unlock tokens in the database.
-  # config.secret_key = '142dcccdfc178619960b59e8d79bd317c379d2662afe24effa35da65a5a9195937b91e3991979497ed1ec4edf1448a2ab5bd18feeb0612ee053def6cddc0f862'
+  config.secret_key = '142dcccdfc178619960b59e8d79bd317c379d2662afe24effa35da65a5a9195937b91e3991979497ed1ec4edf1448a2ab5bd18feeb0612ee053def6cddc0f862'
 
   # ==> Mailer Configuration
   # Configure the e-mail address which will be shown in Devise::Mailer,
   # note that it will be overwritten if you use your own mailer class
   # with default "from" parameter.
-  config.mailer_sender = 'please-change-me-at-config-initializers-devise@example.com'
+  config.mailer_sender = 'sameertotey@gmail.com'
 
   # Configure the class responsible to send e-mails.
   # config.mailer = 'Devise::Mailer'
@@ -230,6 +230,12 @@ Devise.setup do |config|
   # Add a new OmniAuth provider. Check the wiki for more information on setting
   # up on your models and hooks.
   # config.omniauth :github, 'APP_ID', 'APP_SECRET', scope: 'user,public_repo'
+  config.omniauth :facebook, ENV["facebook_key"], ENV["facebook_secret"], { :scope => 'email, offline_access', :client_options => {:ssl => {:ca_file => '/usr/lib/ssl/certs/ca-certificates.crt'}}}
+  config.omniauth :twitter, ENV["twitter_key"], ENV["twitter_secret"], { :scope => 'r_fullprofile, r_emailaddress', :client_options => {:ssl => {:ca_file => '/usr/lib/ssl/certs/ca-certificates.crt'}}}
+  config.omniauth :linkedin, ENV["linkedin_key"], ENV["linkedin_secret"], { :scope => 'r_fullprofile r_emailaddress', :client_options => {:ssl => {:ca_file => '/usr/lib/ssl/certs/ca-certificates.crt'}}}
+  config.omniauth :github, ENV['github_key'], ENV['github_secret'], scope: "user, public_repo"
+  config.omniauth :google_oauth2, ENV['google_key'], ENV['google_secret'], {}
+
 
   # ==> Warden configuration
   # If you want to use other strategies, that are not supported by Devise, or

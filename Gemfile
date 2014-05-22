@@ -44,8 +44,12 @@ gem 'bootstrap-sass'
 gem 'devise'
 gem 'haml'
 gem 'figaro'
+gem 'omniauth'
 gem 'omniauth-facebook'
 gem 'omniauth-twitter'
+gem 'omniauth-linkedin'
+gem 'omniauth-github'
+gem 'omniauth-google-oauth2'
 group :development do
   gem 'pry'
 end
