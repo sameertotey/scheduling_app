@@ -52,10 +52,16 @@ gem 'omniauth-github'
 gem 'omniauth-google-oauth2'
 group :development do
   gem 'pry-rails'
+  gem 'pry'
+  gem 'pry-remote'
+  gem 'pry-stack_explorer'
+  gem 'pry-debugger'
 end
 group :development, :test do
   gem 'factory_girl_rails'
-  gem 'rspec-rails', '>= 3.0.0.rc1'
+  gem 'rspec-rails', '~> 2.14.2'
+  gem 'spring-commands-rspec'
+  gem 'guard-rspec'
 end
 group :test do
   gem 'capybara'

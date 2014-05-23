@@ -3,7 +3,10 @@
 FactoryGirl.define do
   factory :identity do
     user nil
-    provider "MyString"
-    uid "MyString"
+    provider "App"
+    uid "application_uid"
+    name "Test User"
+    token "test token"
+    secret "test secret"
   end
 end
