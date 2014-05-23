@@ -2,13 +2,12 @@ class OmniauthCallbacksController < Devise::OmniauthCallbacksController
   skip_before_action :authenticate_user!
   
   def all
-    p env["omniauth.auth"]
     user = User.from_omniauth(auth_hash, current_user)
     if user.persisted?
-      flash[:notice] = "You are in..!!! Go to edit profile to see the status for the accounts"
+      set_flash_message(:notice, :success, :kind => auth_hash['provider']) if is_navigational_format?
       sign_in_and_redirect(user)
     else
-      session["devise.user_attributes"] = user.attributes
+      session["devise.auth_hash"] = auth_hash
       redirect_to new_user_registration_url
     end
   end

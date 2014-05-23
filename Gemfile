@@ -51,7 +51,7 @@ gem 'omniauth-linkedin'
 gem 'omniauth-github'
 gem 'omniauth-google-oauth2'
 group :development do
-  gem 'pry'
+  gem 'pry-rails'
 end
 group :development, :test do
   gem 'factory_girl_rails'
