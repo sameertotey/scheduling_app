@@ -2,6 +2,7 @@ require 'spec_helper'
 include Warden::Test::Helpers
 Warden.test_mode!
 
+
 # Feature: User delete
 #   As a user
 #   I want to delete my user profile
@@ -26,7 +27,4 @@ feature 'User delete', :devise, js: true do
   end
 
 end
-
-
-
 

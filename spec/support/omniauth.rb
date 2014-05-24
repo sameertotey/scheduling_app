@@ -1,4 +1,4 @@
-def login_as(user)
+def omniauth_login_as(user)
   OmniAuth.config.test_mode = true
   OmniAuth.config.mock_auth[:twitter] = {
       "provider" => user.provider,
