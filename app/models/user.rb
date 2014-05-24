@@ -32,7 +32,6 @@ class User < ActiveRecord::Base
 
   def identity_setup
     if self.identity.blank?
-      # binding.pry
       self.identity = Identity.find_or_create_by(provider: "App_generated", uid: self.email)
     end
   end
