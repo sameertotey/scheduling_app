@@ -15,7 +15,9 @@ class User < ActiveRecord::Base
       if user.blank?
         user = User.new
         user.password = Devise.friendly_token[0,10]
-        user.email = auth.provider == "twitter" ?  set_dummy_twitter_email(auth.info.name, auth.uid.to_s) :  auth.info.email
+        user.email = auth["provider"] == "twitter" ?  
+            set_dummy_twitter_email(auth["info"]["name"], auth["uid"].to_s) :  
+            auth["info"]["email"]
       end
       identity.user = user
       identity.save
