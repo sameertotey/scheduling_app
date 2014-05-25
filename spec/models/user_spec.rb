@@ -16,6 +16,8 @@ describe User, :type => :model do
   
   it { should have_one(:profile) }
 
+  it { should have_many(:events) }
+
   it "#email returns a string" do
     expect(@user.email).to match 'user@example.com'
   end

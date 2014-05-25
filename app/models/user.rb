@@ -7,6 +7,7 @@ class User < ActiveRecord::Base
   validates_presence_of :email
   has_one :identity
   has_one :profile
+  has_many :events
   after_save :dependent_setup
   
   def self.from_omniauth(auth, current_user)
