@@ -12,6 +12,10 @@ describe User, :type => :model do
   
   it { should have_one(:identity) }
 
+  it { should respond_to(:profile) }
+  
+  it { should have_one(:profile) }
+
   it "#email returns a string" do
     expect(@user.email).to match 'user@example.com'
   end
@@ -30,11 +34,13 @@ describe User, :type => :model do
     expect(@user).to be_valid
   end
 
-  it "sets up the identity model is not present" do
+  it "sets up the depend models if not present" do
     expect(Identity.count).to eq 0
+    expect(Profile.count).to eq 0
     @user.password = "password"
     @user.save
     expect(Identity.count).to eq 1
+    expect(Profile.count).to eq 1
   end
 
 end

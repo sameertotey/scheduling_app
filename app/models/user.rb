@@ -6,7 +6,8 @@ class User < ActiveRecord::Base
          :omniauthable, omniauth_providers: [:facebook, :twitter, :github, :linkedin, :google_oauth2]
   validates_presence_of :email
   has_one :identity
-  after_save :identity_setup
+  has_one :profile
+  after_save :dependent_setup
   
   def self.from_omniauth(auth, current_user)
     identity = Identity.find_for_oauth(auth)
@@ -22,6 +23,7 @@ class User < ActiveRecord::Base
       identity.user = user
       identity.save
       user.save
+      profile = Profile.create_for_oauth(user, auth)
     end
     identity.user
   end       
@@ -32,9 +34,12 @@ class User < ActiveRecord::Base
     "#{name}_#{uid}@twitter.com".gsub(' ', '_')
   end
 
-  def identity_setup
+  def dependent_setup
     if self.identity.blank?
       self.identity = Identity.find_or_create_by(provider: "App_generated", uid: self.email)
+    end
+    if self.profile.blank?
+      self.profile = Profile.create
     end
   end
 end

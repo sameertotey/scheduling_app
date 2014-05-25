@@ -19,11 +19,14 @@ feature 'Sign in with external accounts' do
 
   scenario 'user with same email will be created if not already registered' do
     expect(User.count).to eq 0
+    expect(Profile.count).to eq 0
+
     expect(Identity.count).to eq 0
     provider = 'facebook'
     signin_with_omniauth(provider)
     expect(page).to have_content "Successfully authenticated from #{provider} account"
     expect(User.count).to eq 1
+    expect(Profile.count).to eq 1
     expect(Identity.count).to eq 1
   end
 
@@ -41,6 +44,7 @@ feature 'Sign in with external accounts' do
     signin_with_omniauth(provider)
     expect(page).to have_content "Successfully authenticated from #{provider} account"
     expect(User.count).to eq 1
+    expect(Profile.count).to eq 1
     expect(Identity.count).to eq 2
   end
 
@@ -51,6 +55,7 @@ feature 'Sign in with external accounts' do
     signin_with_omniauth(provider)
     expect(page).to have_content "Successfully authenticated from #{provider} account"
     expect(User.count).to eq 1
+    expect(Profile.count).to eq 1
     expect(Identity.count).to eq 1
     expect(User.first.email).to eq "test_user_twt_uid@twitter.com"
   end
