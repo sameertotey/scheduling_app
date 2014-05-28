@@ -40,7 +40,6 @@ gem 'unicorn'
 # gem 'debugger', group: [:development, :test]
 
 gem 'pg'
-gem 'bootstrap-sass'
 gem 'devise'
 gem 'haml'
 gem 'figaro'
@@ -71,4 +70,14 @@ group :test do
   gem 'launchy'
   gem 'selenium-webdriver'
 end
+
+gem 'eco'
+gem 'compass-rails'
+gem 'bootstrap-sass'
+
+gem 'rabl'
+gem 'oj'
+gem 'gon'
+gem 'js-routes'
+
 

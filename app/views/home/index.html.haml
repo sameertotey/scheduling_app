@@ -1,1 +1,18 @@
-%h1 Welcome to the Scheduling Application
+
+#wrap
+  #header-region
+  #main-region.container
+  #push
+
+#footer-region
+
+-if current_user
+  :javascript 
+    $(function(){
+      SchedulingApp.start({
+        currentUser: gon.current_user
+      })
+    })
+-else
+  %h1 Welcome to the Scheduling Application
+  %h3 Please sign in

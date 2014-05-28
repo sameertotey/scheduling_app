@@ -1,9 +1,9 @@
-$navbar-default-bg: red;
-$light-orange: #ff8c00;
-$navbar-default-color: $light-orange;
-
 // import the CSS framework
-@import "bootstrap";
+  @import "bootstrap";
+  @import "bootstrap/theme";
+
+html,body  {  height: 100%;  }
+#wrap      {  height: auto !important; margin: 0 auto -60px; min-height: 100%;  }
 
 // make all images responsive by default
 img {
@@ -41,7 +41,8 @@ main {
   background-color: #eee;
   padding-bottom: 80px;
   width: 100%;
-  margin-top: 51px; // accommodate the navbar
+  margin-top: 55px; // accommodate the navbar
+  height: 100%; //testing to see if the footer is pushed down
   }
 section {
   @extend .row;

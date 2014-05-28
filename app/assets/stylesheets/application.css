@@ -13,3 +13,13 @@
  *= require_tree .
  *= require_self
  */
+
+// import the CSS framework
+
+  @import "apps/base";
+
+  @import "apps/header";
+
+  @import "apps/footer";
+
+  @import "components/calendar.css";
