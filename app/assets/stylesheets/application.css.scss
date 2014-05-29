@@ -16,6 +16,10 @@
 
 // import the CSS framework
 
+  @import "bootstrap";
+
+  @import "bootstrap/theme";
+
   @import "apps/base";
 
   @import "apps/header";

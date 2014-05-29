@@ -10,7 +10,7 @@
       new Entities.HeaderCollection [
         { name: "Users", url: "/users"}
         { name: "Leads", url: "/leads"}
-        {name: "Calendar", url: "/calendar"}
+        { name: "Calendar", url: "/calendar"}
       ]
 
   App.reqres.setHandler "header:entities", ->
