@@ -8,14 +8,40 @@
 			calendarRegion: "#calendar-region"
 	
 	class Show.Panel extends App.Views.ItemView
-		template: "calendar/show/templates/_panel"
+    template: "calendar/show/templates/_panel"
+  
+    ui:
+      "view_btns": ".btn-group button[data-calendar-view]"
+      "nav_btns": ".btn-group button[data-calendar-nav]"
+  
+    events:
+      "click @ui.view_btns": "clickView"
+      "click @ui.nav_btns": "clickNav"
+  
+    modelEvents:
+      "change:title" : "render"
+      "change:view"  : "activeChange"
+
+    clickView: (e) ->
+      App.calendar_control.view($(e.currentTarget).data('calendar-view'))
+
+    clickNav: (e) ->
+      App.calendar_control.navigate($(e.currentTarget).data('calendar-nav'))
+
+    activeChange: (model, val) ->
+      $('.btn-group button').removeClass('active');
+      $('button[data-calendar-view="' + val + '"]').addClass('active');
+
+
 	
-	class Show.calendar extends App.Views.ItemView
+	class Show.Calendar extends App.Views.ItemView
     template: "calendar/show/templates/_calendar"
-    onRender: ->
-      console.log "rendering the calendar"
+
     onShow: ->
-      $("#calendar").calendar
+      App.calendar_control = $("#calendar").calendar
+        onAfterViewLoad: (view) ->
+          App.vent.trigger "calendar:update:title", this.getTitle()
+          App.vent.trigger "calendar:update:view", view
         tmpl_path: "/tmpls/",
         events_source: ->
           []
