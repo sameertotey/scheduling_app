@@ -1,0 +1,1 @@
+attributes :id, :date, :shift, :comment

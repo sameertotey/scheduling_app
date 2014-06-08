@@ -10,6 +10,7 @@
       new Entities.HeaderCollection [
         { name: "Users", url: "/users"}
         { name: "Leads", url: "/leads"}
+        { name: "Events", url: "/events"}
         { name: "Calendar", url: "/calendar"}
       ]
 

@@ -9,7 +9,7 @@
   API =
     
     getEventEntities: (cb) ->
-      events = new Entities.AppointmentsCollection
+      events = new Entities.EventsCollection
       events.fetch
         success: ->
           cb events

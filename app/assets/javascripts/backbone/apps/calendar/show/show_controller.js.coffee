@@ -3,16 +3,15 @@
 	Show.Controller =
     
     displayCalendar: ->
-      appointments = []
       @CalenderTitle = new Backbone.Model
-        title: "Sameer"
+        title: "Calendar"
         view: "month"
-      @layout = @getLayoutView()
-      @layout.on "show", =>
-        @showPanel @CalenderTitle
-        @showCalendar appointments	
-        window.appointments = appointments 
-      App.mainRegion.show @layout
+      App.request "event:entities", (events) =>
+        @layout = @getLayoutView()
+        @layout.on "show", =>
+          @showPanel @CalenderTitle
+          @showCalendar events	
+        App.mainRegion.show @layout
 
     updateTitle: (title) ->
       @CalenderTitle.set
@@ -26,12 +25,13 @@
       panelView = @getPanelView title
       @layout.panelRegion.show panelView
     
-    showCalendar: (appointments) ->
-      calendarView = @getCalendarView appointments
+    showCalendar: (events) ->
+      calendarView = @getCalendarView events
       @layout.calendarRegion.show calendarView    
 
-    getCalendarView: (appointments) ->
+    getCalendarView: (events) ->
       new Show.Calendar
+        collection: events
       
     getPanelView: (title) ->
       new Show.Panel 
