@@ -36,20 +36,41 @@
     template: "calendar/show/templates/_calendar"
 
     onRender: ->
-      console.log "in on render", @collection
-      console.log "toJSON: ", @collection.toJSON()
-      @events = @collection.toJSON()
-      console.log "eventsrc ", @events
+      @eventsrc = _.each @collection.toJSON(), (element) ->
+        seven_thirty = 27000000
+        six_hours = 21600000
+        afternoon_shift = 48600000
+        offset = if element.shift == 1 then seven_thirty else afternoon_shift
+        _.extend element,
+          start: moment(element.date) + offset
+          end: moment(element.date) + offset + six_hours
+
 
     onShow: ->
-      console.log "in on show"
-      events = @collection.toJSON()
-      console.log "see this ", JSON.stringify(@collection.toJSON())
+      events = @eventsrc
       App.calendar_control = $("#calendar").calendar
         onAfterViewLoad: (view) ->
           App.vent.trigger "calendar:update:title", this.getTitle()
           App.vent.trigger "calendar:update:view", view
         tmpl_path: "/tmpls/",
-        events_source: ->
+        events_source: 
           events
+        time_start:         '07:00',
+        time_end:           '20:00',
+        time_split:         '30',
+        first_day: 2,
+        holidays:  {
+          # // January 1
+          '01-01':  "New Year's Day",
+          # // Last (-1*) Monday (1) in May (05)
+          '05-1*1': "Memorial Day",
+          # // July 4
+          '04-07':  "Independence Day",
+          # // First (+1*) Monday (1) in September (09)
+          '09+1*1': "Labor Day",
+          # // Fourth (+4*) Thursday (4) in November (11)
+          '11+4*4': "Thanksgiving Day",
+          # // December 25
+          '25-12':  "Christmas"
+        }
           

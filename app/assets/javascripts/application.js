@@ -13,6 +13,8 @@
 //= require jquery
 //= require jquery_ujs
 //= require bootstrap
+//= require lib/jstz.js
+//= require lib/moment.js
 //= require lib/underscore
 //= require lib/calendar
 //= require lib/backbone
