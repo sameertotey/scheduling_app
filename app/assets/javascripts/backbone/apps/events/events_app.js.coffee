@@ -2,11 +2,16 @@
 	
 	class EventsApp.Router extends Marionette.AppRouter
 		appRoutes:
-			"events"	: "listEvents"
+      "events"           : "listEvents"
+      "events/:id/edit"  : "editEvent"
+
 	
 	API =
 		listEvents: ->
-      EventsApp.List.Controller.listEvents()
+      new EventsApp.List.Controller
+
+    editEvent: ->
+      new EventsApp.Edit.Controller
 	
 	App.addInitializer ->
 		new EventsApp.Router

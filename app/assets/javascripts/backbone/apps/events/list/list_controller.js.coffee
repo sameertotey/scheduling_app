@@ -1,8 +1,8 @@
 @SchedulingApp.module "EventsApp.List", (List, App, Backbone, Marionette, $, _) ->
 	
-	List.Controller =
+	class List.Controller extends Marionette.Controller
 		
-		listEvents: ->
+		initialize: ->
 			App.request "event:entities", (events) =>
         @layout = @getLayoutView()
         @layout.on "show", =>
@@ -16,7 +16,6 @@
 			@layout.panelRegion.show panelView
 		
 		showEvents: (events) ->
-      console.log "inside showEvents"
       eventsView = @getEventsView events
       @layout.eventsRegion.show eventsView
 		
