@@ -4,6 +4,7 @@
 		appRoutes:
       "events"           : "listEvents"
       "events/:id/edit"  : "editEvent"
+      "events/new"       : "newEvent"
 
 	
 	API =
@@ -12,6 +13,9 @@
 
     editEvent: ->
       new EventsApp.Edit.Controller
+
+    newEvent: ->
+      new EventsApp.New.Controller
 	
 	App.addInitializer ->
 		new EventsApp.Router

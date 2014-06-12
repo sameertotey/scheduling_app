@@ -8,7 +8,9 @@
 			eventsRegion: "#events-region"
 	
 	class List.Panel extends App.Views.ItemView
-		template: "events/list/templates/_panel"
+    template: "events/list/templates/_panel"
+    triggers:
+      "click #new-crew" : "new:crew:button:clicked"
 	
 	class List.Event extends App.Views.ItemView
 		template: "events/list/templates/_event"

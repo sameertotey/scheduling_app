@@ -13,11 +13,12 @@
 //= require jquery
 //= require jquery_ujs
 //= require bootstrap
-//= require lib/jstz.js
-//= require lib/moment.js
+//= require lib/jstz
+//= require lib/moment
 //= require lib/underscore
 //= require lib/calendar
 //= require lib/backbone
+//= require lib/backbone.syphon
 //= require lib/marionette
 //= require js-routes
 //= require_tree ./backbone/config
