@@ -11,25 +11,28 @@
     template: "events/list/templates/_panel"
     triggers:
       "click #new-crew" : "new:crew:button:clicked"
-	
+
 	class List.Event extends App.Views.ItemView
     template: "events/list/templates/_event"
     tagName: "tr"
+    className: "list-event"
 
     events:
       "click .event-delete button" : "clickDelete"
+      "dblclick"                   : "showEvent"
 
     clickDelete: ->
-      console.log "delete clicked", @model
       App.vent.trigger "delete:event", @model 
 
+    showEvent: ->
+      App.vent.trigger "show:event", @model 
   
 	class List.Empty extends App.Views.ItemView
 		template: "events/list/templates/_empty"
-		tagName: "tr"
+		tagName:  "tr"
 	
 	class List.Events extends App.Views.CompositeView
-		template: "events/list/templates/_events"
-		itemView: List.Event
-		emptyView: List.Empty
-		itemViewContainer: "tbody"
+    itemView:           List.Event
+    itemViewContainer: "tbody"
+    template:           "events/list/templates/_events"
+    emptyView:          List.Empty

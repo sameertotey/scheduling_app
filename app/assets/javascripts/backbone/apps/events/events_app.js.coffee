@@ -11,14 +11,21 @@
 		listEvents: ->
       new EventsApp.List.Controller
 
-    editEvent: ->
+    editEvent: (model) ->
       new EventsApp.Edit.Controller
 
     newEvent: ->
       new EventsApp.New.Controller
 
+    showEvent: (model) ->
+      new EventsApp.Show.Controller
+
     deleteEvent: (model) ->
-      if confirm "Are you sure you want to delete #{model.get("comment")}?" then model.destroy() else false
+      if confirm "Are you sure you want to delete #{model.get("comment")}?" 
+        model.destroy
+          success: App.navigate Routes.events_path()
+      else 
+        false 
 	
 	App.addInitializer ->
 		new EventsApp.Router
@@ -26,3 +33,6 @@
 
   App.vent.on "delete:event", (model) ->
     API.deleteEvent(model)
+
+  App.vent.on "show:event", (model) ->
+    API.showEvent(model)

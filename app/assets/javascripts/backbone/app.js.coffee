@@ -21,7 +21,8 @@
 
   App.on "initialize:after", ->
     if Backbone.history
-      Backbone.history.start()
-      @navigate(@rootRoute, trigger: true) if @getCurrentRoute() is ""
+      Backbone.history.start
+        hashChange: true
+    @navigate(@rootRoute, trigger: true) if @getCurrentRoute() is ""
 
   App

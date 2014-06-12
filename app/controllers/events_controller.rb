@@ -30,7 +30,7 @@ class EventsController < ApplicationController
   def update
     @event = Event.find params[:id]
     if @event.update_attributes event_params
-      render "crew/show"
+      render "events/show"
     else
       respond_with @event
     end
