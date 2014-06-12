@@ -13,9 +13,17 @@
       "click #new-crew" : "new:crew:button:clicked"
 	
 	class List.Event extends App.Views.ItemView
-		template: "events/list/templates/_event"
-		tagName: "tr"
-	
+    template: "events/list/templates/_event"
+    tagName: "tr"
+
+    events:
+      "click .event-delete button" : "clickDelete"
+
+    clickDelete: ->
+      console.log "delete clicked", @model
+      App.vent.trigger "delete:event", @model 
+
+  
 	class List.Empty extends App.Views.ItemView
 		template: "events/list/templates/_empty"
 		tagName: "tr"

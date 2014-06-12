@@ -3,5 +3,7 @@ class HomeController < ApplicationController
 
   def index
     gon.current_user = current_user
+    gon.environment = Rails.env
+    gon.event_types = EventType.all
   end
 end

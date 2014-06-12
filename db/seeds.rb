@@ -10,3 +10,9 @@ events = Event.create([
   {date: '2014-05-14', comment:'This is a comment', shift: 1},
   {date: '2014-05-17', comment:'This is test test test!', shift: 2}
 ])
+
+event_types = EventType.create([
+  {name: 'yes', description: 'request this shift'},
+  {name: 'no', description: 'decline this shift'},
+  {name: 'info', description: 'information only'}
+  ])

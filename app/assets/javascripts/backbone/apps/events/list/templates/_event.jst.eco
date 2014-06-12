@@ -1,3 +1,8 @@
 <td><%= @date %></td>
 <td><%= @comment %></td>
 <td><%= @shift %></td>
+<td> 
+<div class="event-delete">
+  <button type="button" class="btn btn-danger delete-event">Delete</button>
+</div>
+</td>
