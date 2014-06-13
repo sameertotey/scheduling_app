@@ -23,9 +23,9 @@
     deleteEvent: (model) ->
       if confirm "Are you sure you want to delete #{model.get("comment")}?" 
         model.destroy
-          success: App.navigate Routes.events_path()
-      else 
-        false 
+          success: ->
+            App.navigate Routes.events_path(), trigger: true
+            API.listEvents()
 	
 	App.addInitializer ->
 		new EventsApp.Router
