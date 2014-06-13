@@ -1,23 +1,23 @@
-<div id="new-event">
+<div id="edit-event">
   <form class="form-horizontal" role="form">
     <div class="form-group">
       <label for="event-date"  class="col-md-3 control-label">Date</label>
       <div class="col-md-9">
-        <input type="date" class="form-control" id="event-date" name="date" placeholder="Enter date">
+        <input type="date" class="form-control" id="event-date" name="date" value="<%= @date %>">
       </div>
     </div>
     <div class="form-group">
       <label for="event-comment"  class="col-md-3 control-label">Comment</label>
       <div class="col-md-9">
-        <input type="text" class="form-control" id="event-comment" name="comment" placeholder="Enter comment">
+        <input type="text" class="form-control" id="event-comment" name="comment" value="<%= @comment %>">
       </div>
     </div>
     <div class="form-group">
       <label for="event-shift"  class="col-md-3 control-label">Shift</label>
       <div class="col-md-9">
-        <select class="form-control" id="event-shift" name="shift" >
-          <option value="1">AM</option>
-          <option value="2">PM</option>
+        <select class="form-control" id="event-shift" name="shift">
+          <option value="1" selected="<%= @shift == 1 %>">AM</option>
+          <option value="2" selected="<%= @shift == 2 %>">PM</option>
         </select>
       </div>
     </div>

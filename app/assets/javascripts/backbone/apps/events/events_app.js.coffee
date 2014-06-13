@@ -3,22 +3,25 @@
 	class EventsApp.Router extends Marionette.AppRouter
 		appRoutes:
       "events"           : "listEvents"
-      "events/:id/edit"  : "editEvent"
       "events/new"       : "newEvent"
+      "events/:id"       : "showEvent"
+      "events/:id/edit"  : "editEvent"
 
-	
 	API =
 		listEvents: ->
       new EventsApp.List.Controller
 
-    editEvent: (model) ->
-      new EventsApp.Edit.Controller
-
     newEvent: ->
       new EventsApp.New.Controller
 
-    showEvent: (model) ->
-      new EventsApp.Show.Controller
+    showEvent: (id) ->
+      App.navigate Routes.edit_event_path(id)
+      API.editEvent id
+
+    editEvent: (id, model) ->
+      new EventsApp.Edit.Controller 
+        id: id
+        event: model
 
     deleteEvent: (model) ->
       if confirm "Are you sure you want to delete #{model.get("comment")}?" 
@@ -34,5 +37,6 @@
   App.vent.on "delete:event", (model) ->
     API.deleteEvent(model)
 
-  App.vent.on "show:event", (model) ->
-    API.showEvent(model)
+  App.vent.on "edit:event", (model) ->
+    App.navigate Routes.edit_event_path(model.id)
+    API.editEvent model.id, model

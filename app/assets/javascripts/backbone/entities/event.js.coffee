@@ -18,9 +18,18 @@
 
     newEvent: ->
       new Entities.Event
+
+    getEvent: (id) ->
+      event = new Entities.Event
+        id: id
+      event.fetch()
+      event
   
   App.reqres.setHandler "event:entities", (cb) ->
     API.getEventEntities cb
 
   App.reqres.setHandler "new:event:entity", ->
     API.newEvent()
+
+  App.reqres.setHandler "event:entity", (id) ->
+    API.getEvent id
