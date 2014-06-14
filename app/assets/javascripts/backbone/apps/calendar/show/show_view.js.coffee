@@ -48,6 +48,7 @@
 
     onShow: ->
       events = @eventsrc
+      window.cal_eve = events
       App.calendar_control = $("#calendar").calendar
         onAfterViewLoad: (view) ->
           App.vent.trigger "calendar:update:title", this.getTitle()
