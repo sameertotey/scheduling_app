@@ -21,6 +21,16 @@
         </select>
       </div>
     </div>
+
+    <div class="form-group">
+      <label for="event-type"  class="col-sm-3 control-label">Type</label>
+      <div class="col-sm-9">
+        <select class="form-control" id="event-type" name="event_type_id" value="<%= @event_type?.id %>" >
+          <%- @eventTypeOptions() %>
+        </select>
+      </div>
+    </div>
+
     <div class="form-group">
       <div class="col-sm-offset-3 col-sm-2">
         <button type="submit" class="btn btn-success">Submit</button>

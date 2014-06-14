@@ -7,10 +7,10 @@ class EventsController < ApplicationController
   end
 
   def create
-    @event = Event.new
+    @event = Event.new event_params
     @event.user = current_user
     @event.event_type = get_event_type
-    if @event.update_attributes event_params
+    if @event.save
       render "events/show"
     else
       respond_with @event
@@ -29,6 +29,7 @@ class EventsController < ApplicationController
   
   def update
     @event = Event.find params[:id]
+    @event.event_type = get_event_type
     if @event.update_attributes event_params
       render "events/show"
     else
@@ -43,6 +44,6 @@ class EventsController < ApplicationController
   end
 
   def get_event_type
-
+    EventType.find params[:event_type_id]
   end
 end

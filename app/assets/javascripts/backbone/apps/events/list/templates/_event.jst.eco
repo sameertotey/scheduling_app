@@ -1,6 +1,7 @@
 <td><%= @date %></td>
 <td><%= @comment %></td>
 <td><%= if @shift == 1 then "AM" else "PM" %></td>
+<td><%= @event_type?.name %></td>
 <td> 
 <div class="event-delete">
   <button type="button" class="btn btn-danger delete-event">Delete</button>

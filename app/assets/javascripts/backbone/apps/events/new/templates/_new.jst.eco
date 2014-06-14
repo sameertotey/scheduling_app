@@ -25,7 +25,7 @@
     <div class="form-group">
       <label for="event-type"  class="col-sm-3 control-label">Type</label>
       <div class="col-sm-9">
-        <select class="form-control" id="event-type" name="event_type_id" >
+        <select class="form-control" id="event-type" name="event_type_id">
           <%- @eventTypeOptions() %>
         </select>
       </div>

@@ -6,6 +6,7 @@
     			<th>Date</th>
     			<th>Comment</th>
           <th>Shift</th>
+          <th>Type</th>
           <th></th>
     		</tr>
     	</thead>

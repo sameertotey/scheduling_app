@@ -6,4 +6,3 @@
     triggers:
       "submit"                            : "new:event:submit"
       "click [data-form-button='cancel']" : "new:event:cancel"
-    

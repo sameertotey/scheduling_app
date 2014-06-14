@@ -9,4 +9,8 @@
 
     modelEvents:
       "sync": "render"
+
+    onDomRefresh: =>
+      $("#event-type").val(@model.get("event_type")?.id)
+
     
