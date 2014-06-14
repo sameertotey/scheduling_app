@@ -6,6 +6,8 @@
 
   App.on "initialize:before", (options) ->
     @currentUser = App.request "set:current:user", options.currentUser
+    @environmnet = options.environment
+    @eventTypes = options.eventTypes
 
   App.reqres.setHandler "get:current:user", ->
     App.currentUser

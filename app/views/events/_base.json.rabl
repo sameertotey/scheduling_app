@@ -1,1 +1,1 @@
-attributes :id, :date, :shift, :comment
+attributes :id, :date, :shift, :comment, :user, :event_type

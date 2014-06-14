@@ -3,10 +3,7 @@
   class New.Controller extends Marionette.Controller
     
     initialize: ->
-      eventtypes = App.request "eventtype:entities"
-      window.eventtypes = eventtypes
       event = App.request "new:event:entity"
-      
       @newView = @getNewView event
       App.mainRegion.show @newView
 

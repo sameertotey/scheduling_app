@@ -1,8 +1,8 @@
 <div class="panel panel-default">
   <div class="panel-body">
     <div class="row">
-      <div class="col-md-6">Total Events: <%= @items.length %></div>
-      <div class="col-md-2 col-md-offset-4">
+      <div class="col-sm-6">Total Events: <%= @items.length %></div>
+      <div class="col-sm-2 col-sm-offset-4">
           <a class="btn btn-block btn-large btn-info" href="#events/new">Create New Event</a>
       </div>
     </div>

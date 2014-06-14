@@ -13,8 +13,7 @@ class OmniauthCallbacksController < Devise::OmniauthCallbacksController
   end
 
   def failure
-    #handle you logic here..
-    #and delegate to super.
+    #delegate to super.
     super
   end
 
