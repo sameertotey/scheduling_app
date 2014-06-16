@@ -10,6 +10,8 @@ class CreateProfiles < ActiveRecord::Migration
       t.string :image_loc
       t.string :role
       t.string :initials
+      t.string :css_class
+
       t.references :user, index: true
 
       t.timestamps

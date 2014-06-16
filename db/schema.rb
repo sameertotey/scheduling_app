@@ -19,6 +19,7 @@ ActiveRecord::Schema.define(version: 20140525030339) do
   create_table "event_types", force: true do |t|
     t.string   "name"
     t.string   "description"
+    t.string   "css_class"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -59,6 +60,7 @@ ActiveRecord::Schema.define(version: 20140525030339) do
     t.string   "image_loc"
     t.string   "role"
     t.string   "initials"
+    t.string   "css_class"
     t.integer  "user_id"
     t.datetime "created_at"
     t.datetime "updated_at"

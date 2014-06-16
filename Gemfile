@@ -63,6 +63,7 @@ group :development, :test do
   gem 'rspec-rails', '~> 2.14.2'
   gem 'spring-commands-rspec'
   gem 'guard-rspec'
+  gem 'jazz_hands'
 end
 group :test do
   gem 'capybara'

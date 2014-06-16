@@ -35,6 +35,14 @@
 	class Show.Calendar extends App.Views.ItemView
     template: "calendar/show/templates/_calendar"
 
+    events: 
+      "click a": "navigateEvent"
+
+    navigateEvent: (e) ->
+      $('[data-original-title]').popover('hide');
+      $('[data-original-title]').tooltip('hide');
+      App.navigate Routes.edit_event_path($(e.currentTarget).data('event-id')), trigger: true
+
     onRender: ->
       @eventsrc = _.each @collection.toJSON(), (element) ->
         seven_thirty = 27000000
@@ -42,8 +50,11 @@
         afternoon_shift = 48600000
         offset = if element.shift == 1 then seven_thirty else afternoon_shift
         _.extend element,
-          start: moment(element.date) + offset
+          start: moment(element.date) + offset  
           end: moment(element.date) + offset + six_hours
+          # url: "#" + Routes.edit_event_path(element.id)
+          title: element.profile.initials + ' ' + element.event_type.name
+          class: element.profile.css_class + ' ' + element.event_type.css_class
 
 
     onShow: ->
