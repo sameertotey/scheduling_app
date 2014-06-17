@@ -16,7 +16,7 @@
         if current_user.id then signed_in = true else signed_in = false
         is_admin = current_user.get("admin")
 
-        if (options.admin == is_admin) and (options.signedin == signed_in)  
+        if (!options.admin or is_admin) and (options.signedin == signed_in)  
           "<a href='#{url}'>#{@escape(name)}</a>"
 
       currentUser:
