@@ -41,6 +41,7 @@
     navigateEvent: (e) ->
       $('[data-original-title]').popover('hide');
       $('[data-original-title]').tooltip('hide');
+      console.log "calender day and view", App.calendar_control
       App.navigate Routes.edit_event_path($(e.currentTarget).data('event-id')), trigger: true
 
     onRender: ->
@@ -58,6 +59,12 @@
 
 
     onShow: ->
+      if App.calendar_control
+        day = App.calendar_control.options.day ? "now"
+        view = App.calendar_control.options.view ? "month"
+      else
+        day = "now"
+        view = "month"
       events = @eventsrc
       window.cal_eve = events
       App.calendar_control = $("#calendar").calendar
@@ -67,6 +74,8 @@
         tmpl_path: "/tmpls/",
         events_source: 
           events
+        view: view
+        day: day
         time_start:         '07:00',
         time_end:           '20:00',
         time_split:         '30',
