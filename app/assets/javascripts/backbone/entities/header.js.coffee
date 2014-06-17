@@ -8,13 +8,16 @@
   API = 
     getHeaders: ->
       new Entities.HeaderCollection [
-        { name: "Users", url: "users"}
-        { name: "Leads", url: "leads"}
-        { name: "Events", url: "events"}
-        { name: "Calendar", url: "calendar"}
+        { name: "Sign up", url: Routes.new_user_registration_path(), fragment: false, signed_in: false, admin: false}
+        { name: "Sign in", url: Routes.new_user_session_path(), fragment: false, signed_in: false, admin: false}
+        { name: "Sign out", url: Routes.destroy_user_session_path(), fragment: false, signed_in: true, admin: false}
+        { name: "Edit account", url: Routes.edit_user_registration_path(), fragment: false, signed_in: true, admin: false}
+
+        { name: "Users", url: Routes.users_path(), fragment: false, signed_in: true, admin: true}
+        { name: "Leads", url: "leads", fragment: true}
+        { name: "Events", url: "events", fragment: true}
+        { name: "Calendar", url: "calendar", fragment: true}
       ]
 
   App.reqres.setHandler "header:entities", ->
     API.getHeaders()
-
-

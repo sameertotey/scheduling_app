@@ -6,9 +6,12 @@
       
       linkTo: (name, url, options = {}) ->
         _.defaults options,
-          external: false
+          fragment: false
         
-        url = "#" + url unless options.external
+        url = "#" + url if options.fragment
+
+        current_user = App.request("get:current:user").toJSON()
+        if current_user.id then signed_in = true
         
         "<a href='#{url}'>#{@escape(name)}</a>"
 

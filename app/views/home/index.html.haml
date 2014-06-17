@@ -1,10 +1,12 @@
-
 #wrap
   #header-region
-  #main-region.container
+  #main-region.container-fluid
   #push
+#footer-region
 
 -if current_user
+  -content_for :hide_navigation do
+    alert('The backbone app will provide navigation')
   :javascript 
     $(function(){
       SchedulingApp.start({
@@ -16,4 +18,3 @@
 -else
   %h1 Welcome to the Scheduling Application
   %h3 Please sign in
-#footer-region

@@ -7,7 +7,7 @@ require 'spec_helper'
 
 feature 'Sign in with external accounts' do
 
-  scenario 'user can signin/signout with external account' do  
+  scenario 'user can signin/signout with external account', js: true do  
     [:facebook, :twitter, :github, :linkedin, :google_oauth2].each do |account|
       provider = account.to_s
       signin_with_omniauth(provider)
@@ -30,7 +30,7 @@ feature 'Sign in with external accounts' do
     expect(Identity.count).to eq 1
   end
 
-  scenario 'user with same email will be reused if already registered' do
+  scenario 'user with same email will be reused if already registered', js: true do
     expect(User.count).to eq 0
     expect(Identity.count).to eq 0
     provider = 'facebook'

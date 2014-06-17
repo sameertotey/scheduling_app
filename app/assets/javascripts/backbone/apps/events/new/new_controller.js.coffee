@@ -8,14 +8,14 @@
       App.mainRegion.show @newView
 
       @listenTo @newView, "new:event:cancel", ->
-        App.navigate Routes.events_path(), trigger: true
+        window.history.back();
 
 
       @listenTo @newView, "new:event:submit", (args) ->
         data = Backbone.Syphon.serialize args.view
         args.model.save data,
           success: (model, response, options) ->
-            App.navigate Routes.events_path(), trigger: true
+            window.history.back()
 
     
     getNewView: (event) ->

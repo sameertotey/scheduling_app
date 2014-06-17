@@ -3,22 +3,22 @@
 	Show.Controller =
     
     displayCalendar: ->
-      @CalenderTitle = new Backbone.Model
+      @calenderTitle = new Backbone.Model
         title: "Calendar"
         view: "month"
       App.request "event:entities", (events) =>
         @layout = @getLayoutView()
         @layout.on "show", =>
-          @showPanel @CalenderTitle
+          @showPanel @calenderTitle
           @showCalendar events	
         App.mainRegion.show @layout
 
     updateTitle: (title) ->
-      @CalenderTitle.set
+      @calenderTitle.set
         title: title
     
     updateView: (view) ->
-      @CalenderTitle.set
+      @calenderTitle.set
         view: view
 
     showPanel: (title) ->

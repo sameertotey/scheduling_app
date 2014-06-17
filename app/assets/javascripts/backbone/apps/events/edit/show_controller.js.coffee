@@ -10,13 +10,13 @@
       App.mainRegion.show @editView
 
       @listenTo @editView, "edit:event:cancel", ->
-        App.navigate Routes.events_path(), trigger: true
+        window.history.back()
 
       @listenTo @editView, "update:event:submit", (args) ->
         data = Backbone.Syphon.serialize args.view
         args.model.save data,
           success: (model, response, options) ->
-            App.navigate Routes.events_path(), trigger: true
+            window.history.back()
 
 
     getEditView: (event) ->

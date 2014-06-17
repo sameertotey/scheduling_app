@@ -5,10 +5,11 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable, 
          :omniauthable, omniauth_providers: [:facebook, :twitter, :github, :linkedin, :google_oauth2]
   validates_presence_of :email
-  has_one :identity
-  has_one :profile
-  has_many :events
+  has_one :identity, dependent: :destroy
+  has_one :profile, dependent: :destroy
+  has_many :events, dependent: :destroy
   after_save :dependent_setup
+
   
   def self.from_omniauth(auth, current_user)
     identity = Identity.find_for_oauth(auth)
