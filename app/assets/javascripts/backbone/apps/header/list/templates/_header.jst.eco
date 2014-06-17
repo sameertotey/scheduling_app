@@ -1,1 +1,1 @@
-<%- @linkTo @name, @url , {fragment: @fragment} %>
+<%- @linkTo @name, @url , {fragment: @fragment, admin: @admin, signedin: @signed_in} %>
