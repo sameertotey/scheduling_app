@@ -8,9 +8,11 @@ It has been developed using:
 
 * Rails 4.1.1
 
-* Backbone.js to provide a rich UI experience
+* Backbone.js to provide a rich UI experience for the calendar
 
-* A Full view calendar based on Twitter Bootstrap.
+* A Full view calendar based on Twitter Bootstrap. https://github.com/Serhioromano/bootstrap-calendar
+
+* Uses Devise and OmniAuth for authentication
 
 * Try a demo at: http://cdarvada-scheduling.herokuapp.com
 

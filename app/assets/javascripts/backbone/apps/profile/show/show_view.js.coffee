@@ -12,3 +12,11 @@
 
   class Show.Profile extends App.Views.ItemView
     template: "profile/show/templates/_profile"
+
+    triggers:
+      "submit"                            : "update:profile:submit"
+      "click [data-form-button='cancel']" : "update:profile:cancel"
+
+    modelEvents:
+      "sync": "render"
+

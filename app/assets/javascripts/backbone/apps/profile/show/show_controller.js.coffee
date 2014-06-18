@@ -7,20 +7,28 @@
       console.log "profile:entity", profile
       @layout = @getLayoutView()
       @layout.on "show", =>
-        console.log "inside after show"
         @showPanel profile
         @showProfile profile 
+
       App.mainRegion.show @layout
 
+      @listenTo @profileView, "update:profile:cancel", ->
+        window.history.back();
+
+      @listenTo @profileView, "update:profile:submit", (args) ->
+        data = Backbone.Syphon.serialize args.view
+        args.model.save data,
+          success: (model, response, options) ->
+            window.history.back()
+
+
     showPanel: (profile) ->
-      console.log "inside show panel"
       panelView = @getPanelView profile
       @layout.panelRegion.show panelView
       
     showProfile: (profile) ->
-      console.log "inside show profile"
-      profileView = @getProfileView profile
-      @layout.profileRegion.show profileView
+      @profileView = @getProfileView profile
+      @layout.profileRegion.show @profileView
       
     getProfileView: (profile) ->
       new Show.Profile
