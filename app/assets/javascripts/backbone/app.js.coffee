@@ -2,7 +2,7 @@
 
   App = new Marionette.Application
 
-  App.rootRoute = Routes.root_path()
+  App.rootRoute = Routes.root_path() + "calendar"
 
   App.on "initialize:before", (options) ->
     @currentUser = App.request "set:current:user", options.currentUser
