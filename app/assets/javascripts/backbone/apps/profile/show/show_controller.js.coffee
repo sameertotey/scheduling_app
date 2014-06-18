@@ -4,7 +4,6 @@
 
     initialize: ->
       profile = App.request "profile:entity"
-      console.log "profile:entity", profile
       @layout = @getLayoutView()
       @layout.on "show", =>
         @showPanel profile

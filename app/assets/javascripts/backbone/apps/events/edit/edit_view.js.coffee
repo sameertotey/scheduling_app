@@ -1,5 +1,16 @@
 @SchedulingApp.module "EventsApp.Edit", (Edit, App, Backbone, Marionette, $, _) ->
   
+ 
+  class Edit.Layout extends App.Views.Layout
+    template: "events/edit/templates/_layout"
+
+    regions:
+      panelRegion: "#panel-region"
+      eventRegion: "#event-region"
+    
+  class Edit.Panel extends App.Views.ItemView
+    template: "events/edit/templates/_panel"
+
   class Edit.Event extends App.Views.ItemView
     template: "events/edit/templates/_edit"
 
