@@ -1,28 +1,17 @@
 == README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+This is the Scheduling Application designed for a Dental Office - but can be customized for any scheduling use.
 
-Things you may want to cover:
+It has been developed using:
 
-* Ruby version
+* Ruby 2.1.1
 
-* System dependencies
+* Rails 4.1.1
 
-* Configuration
+* Backbone.js to provide a rich UI experience
 
-* Database creation
+* A Full view calendar based on Twitter Bootstrap.
 
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+* Try a demo at: http://cdarvada-scheduling.herokuapp.com
 
 
-Please feel free to use a different markup language if you do not plan to run
-<tt>rake doc:app</tt>.
