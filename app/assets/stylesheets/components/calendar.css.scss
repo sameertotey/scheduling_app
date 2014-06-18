@@ -250,14 +250,14 @@
   text-wrap: none;
 }
 #cal-day-box .cal-day-hour-part {
-  height: 30px;
+  height: 25px;
   box-sizing: border-box;
   -moz-box-sizing: border-box;
   -webkit-box-sizing: border-box;
   border-bottom: thin dashed #e1e1e1;
 }
 #cal-day-box .cal-day-hour .day-highlight {
-  height: 30px;
+  height: 25px;
 }
 #cal-day-box .cal-hours {
   font-weight: bolder;
@@ -281,7 +281,7 @@
   overflow: hidden;
 }
 #cal-day-box .day-highlight {
-  line-height: 30px;
+  line-height: 25px;
   padding-left: 8px;
   padding-right: 8px;
   box-sizing: border-box;

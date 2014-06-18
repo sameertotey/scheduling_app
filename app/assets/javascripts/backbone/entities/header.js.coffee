@@ -14,7 +14,7 @@
         { name: "Edit account", url: Routes.edit_user_registration_path(), fragment: false, signed_in: true, admin: false}
 
         { name: "Users", url: Routes.users_path(), fragment: false, signed_in: true, admin: true}
-        { name: "Leads", url: "leads", fragment: true}
+        { name: "Edit profile", url: "profile", fragment: true}
         { name: "Events", url: "events", fragment: true}
         { name: "Calendar", url: "calendar", fragment: true}
       ]
