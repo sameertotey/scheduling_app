@@ -14,7 +14,7 @@ class ProfilesController < ApplicationController
     logger.info "The params were: #{params}"
     @profile = Profile.find params[:id]
     if @profile.update_attributes profile_params
-      render "profile/show"
+      render "profiles/show"
     else
       respond_with @profile
     end
