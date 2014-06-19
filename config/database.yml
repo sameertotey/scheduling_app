@@ -19,6 +19,7 @@ test:
   <<: *default
   database: scheduling_app_test
   host: localhost
+  username: postgres
 
 production:
   <<: *default
