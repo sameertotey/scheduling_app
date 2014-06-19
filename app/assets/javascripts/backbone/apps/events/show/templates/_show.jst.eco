@@ -1,0 +1,21 @@
+<div id="show-event-detail">
+  <div class="row">
+    <div class="col-sm-3 text-right">Date:</div>
+    <div class="col-sm-9 text-left"><%= @date %></div>
+  </div>
+  <div class="row">
+    <div class="col-sm-3 text-right">Comment:</div>
+    <div class="col-sm-9 text-left"><%= @comment %></div>
+  </div>
+  <div class="row">
+    <div class="col-sm-3 text-right">Shift:</div>
+    <div class="col-sm-9 text-left"><%= if @shift == 1 then "AM" else "PM" %></div>
+  </div>
+  <div class="row">
+    <div class="col-sm-3 text-right">Type:</div>
+    <div class="col-sm-9 text-left"><%= @event_type?.name %></div>
+  </div>
+  <div class="col-sm-2">
+    <button type="button" class="btn btn-default" data-button="cancel">Cancel</button>
+  </div>
+</div>

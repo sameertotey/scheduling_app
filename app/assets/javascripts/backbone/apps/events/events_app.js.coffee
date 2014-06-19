@@ -14,9 +14,12 @@
     newEvent: ->
       new EventsApp.New.Controller
 
-    showEvent: (id) ->
-      App.navigate Routes.edit_event_path(id)
-      API.editEvent id
+    showEvent: (id, model) ->
+      # App.navigate Routes.edit_event_path(id)
+      # API.editEvent id
+      new EventsApp.Show.Controller 
+        id: id
+        event: model
 
     editEvent: (id, model) ->
       new EventsApp.Edit.Controller 
@@ -27,7 +30,7 @@
       if confirm "Are you sure you want to delete #{model.get("comment")}?" 
         model.destroy
           success: ->
-            App.navigate Routes.events_path(), trigger: true
+            App.navigate Routes.events_path()
             API.listEvents()
 	
 	App.addInitializer ->
@@ -37,6 +40,10 @@
   App.vent.on "delete:event", (model) ->
     API.deleteEvent(model)
 
-  App.vent.on "edit:event", (model) ->
-    App.navigate Routes.edit_event_path(model.id)
-    API.editEvent model.id, model
+  App.vent.on "show:event", (model) ->
+    if App.currentUser.id == model.get("user").id
+      App.navigate Routes.edit_event_path(model.id)
+      API.editEvent model.id, model
+    else
+      App.navigate Routes.event_path(model.id)
+      API.showEvent model.id, model

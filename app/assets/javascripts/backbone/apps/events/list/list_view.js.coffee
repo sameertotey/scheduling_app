@@ -19,13 +19,13 @@
 
     events:
       "click .event-delete button" : "clickDelete"
-      "dblclick"       : "editEvent"
+      "dblclick"                   : "showEvent"
 
     clickDelete: ->
       App.vent.trigger "delete:event", @model 
 
-    editEvent: ->
-      App.vent.trigger "edit:event", @model 
+    showEvent: ->
+      App.vent.trigger "show:event", @model 
   
 	class List.Empty extends App.Views.ItemView
 		template: "events/list/templates/_empty"

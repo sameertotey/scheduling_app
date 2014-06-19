@@ -44,7 +44,7 @@
         _.extend element,
           start: moment(element.date) + offset  
           end: moment(element.date) + offset + six_hours
-          url: "#" + Routes.edit_event_path(element.id)
+          url: if element.user.id == App.currentUser.id then "#" + Routes.edit_event_path(element.id) else "#" + Routes.event_path(element.id)
           title: element.profile.initials + ' ' + element.event_type.name
           class: element.profile.css_class + ' ' + element.event_type.css_class
 
