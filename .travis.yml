@@ -5,9 +5,9 @@ branches: all
 script: bundle exec rspec
 addons:
   postgresql: "9.3"
-  sauce_connect:
-    username: "sameertotey"
-    access_key: "713b2903-3584-4621-a685-9de3aa060f6f"
+  # sauce_connect:
+  #   username: "sameertotey"
+  #   access_key: "713b2903-3584-4621-a685-9de3aa060f6f"
 before_script:
   - psql -c 'create database scheduling_app_test;' -U postgres
 
@@ -16,5 +16,5 @@ before_install:
   - "sh -e /etc/init.d/xvfb start"
   - "/sbin/start-stop-daemon --start --quiet --pidfile /tmp/custom_xvfb_99.pid --make-pidfile --background --exec /usr/bin/Xvfb -- :99 -ac -screen 0 1280x1024x16"
   - sleep 3 # give xvfb some time to start
-  - rackup  # start a Web server
+  # - rackup  # start a Web server
   - sleep 3 # give Web server some time to bind to sockets, etc
