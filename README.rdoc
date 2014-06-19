@@ -1,5 +1,7 @@
 == README
 
+{<img src="https://codeclimate.com/github/sameertotey/scheduling_app.png" />}[https://codeclimate.com/github/sameertotey/scheduling_app]
+
 This is the Scheduling Application designed for a Dental Office - but can be customized for any scheduling use.
 
 It has been developed using:
