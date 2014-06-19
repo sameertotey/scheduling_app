@@ -83,4 +83,4 @@ gem 'oj'
 gem 'gon'
 gem 'js-routes'
 
-
+gem "codeclimate-test-reporter", group: :test, require: nil

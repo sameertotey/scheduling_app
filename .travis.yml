@@ -2,6 +2,7 @@ language: ruby
 rvm:
 - 2.1.1
 branches: all
+CODECLIMATE_REPO_TOKEN=d74c8d540dd2ea1dbb537265c3a87cbe0a12da35a43539932e4eab39388d2295
 script: bundle exec rspec
 addons:
   postgresql: "9.3"
