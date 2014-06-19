@@ -1,5 +1,6 @@
 == README
 
+{<img src="https://travis-ci.org/sameertotey/scheduling_app.svg?branch=master" alt="Build Status" />}[https://travis-ci.org/sameertotey/scheduling_app]
 {<img src="https://codeclimate.com/github/sameertotey/scheduling_app.png" />}[https://codeclimate.com/github/sameertotey/scheduling_app]
 
 This is the Scheduling Application designed for a Dental Office - but can be customized for any scheduling use.
