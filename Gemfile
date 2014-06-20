@@ -64,6 +64,7 @@ group :development, :test do
   gem 'spring-commands-rspec'
   gem 'guard-rspec'
   gem 'jazz_hands'
+  gem 'jasmine-rails'
 end
 group :test do
   gem 'capybara'
