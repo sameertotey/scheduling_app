@@ -514,3 +514,11 @@ a.cal-event-week {
 .badge-important {
   background-color: #b94a48;
 }
+
+.cal-month-day>.add-event-link{
+  display: none;
+}
+
+.cal-month-day:hover>.add-event-link{
+  display: block;
+}
