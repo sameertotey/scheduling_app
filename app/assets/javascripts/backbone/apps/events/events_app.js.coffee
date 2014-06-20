@@ -2,17 +2,19 @@
 	
 	class EventsApp.Router extends Marionette.AppRouter
 		appRoutes:
-      "events"           : "listEvents"
-      "events/new"       : "newEvent"
-      "events/:id"       : "showEvent"
-      "events/:id/edit"  : "editEvent"
+      "events"             : "listEvents"
+      "events/new(:date)"  : "newEvent"
+      "events/:id"         : "showEvent"
+      "events/:id/edit"    : "editEvent"
 
 	API =
 		listEvents: ->
       new EventsApp.List.Controller
 
-    newEvent: ->
-      new EventsApp.New.Controller
+    newEvent: (date) ->
+      console.log "The date passed was #{date}"
+      App.navigate Routes.new_event_path()
+      new EventsApp.New.Controller date
 
     showEvent: (id, model) ->
       # App.navigate Routes.edit_event_path(id)

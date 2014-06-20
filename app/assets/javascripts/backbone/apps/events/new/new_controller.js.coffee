@@ -2,8 +2,9 @@
   
   class New.Controller extends Marionette.Controller
     
-    initialize: ->
+    initialize: (date) ->
       event = App.request "new:event:entity"
+      event.set("date", date)
       @layout = @getLayoutView()
       @layout.on "show", =>
         @showPanel event
@@ -11,13 +12,13 @@
       App.mainRegion.show @layout
 
       @listenTo @newView, "new:event:cancel", ->
-        window.history.back();
+        window.history.go(-2);
 
       @listenTo @newView, "new:event:submit", (args) ->
         data = Backbone.Syphon.serialize args.view
         args.model.save data,
           success: (model, response, options) ->
-            window.history.back()
+            window.history.go(-2)
     
     showPanel: (event) ->
       panelView = @getPanelView event

@@ -1,4 +1,4 @@
-== README
+== Scheduling Application
 
 {<img src="https://travis-ci.org/sameertotey/scheduling_app.svg?branch=master" alt="Build Status" />}[https://travis-ci.org/sameertotey/scheduling_app]
 {<img src="https://codeclimate.com/github/sameertotey/scheduling_app.png" />}[https://codeclimate.com/github/sameertotey/scheduling_app]
@@ -13,7 +13,7 @@ It has been developed using:
 
 * Backbone.js to provide a rich UI experience for the calendar
 
-* A Full view calendar based on Twitter Bootstrap. https://github.com/Serhioromano/bootstrap-calendar
+* A full view calendar based on Twitter Bootstrap forked from https://github.com/Serhioromano/bootstrap-calendar
 
 * Uses Devise and OmniAuth for authentication
 
