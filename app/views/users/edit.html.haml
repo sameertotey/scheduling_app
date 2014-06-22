@@ -1,0 +1,6 @@
+%h1 Update User Informantaion
+= form_for @user do |f| 
+  = f.label :admin
+  = f.select :admin, [['true', true], ['false', false]]
+  %br
+  = f.submit 'Update'
