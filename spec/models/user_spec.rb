@@ -20,6 +20,10 @@ describe User, :type => :model do
 
   it { should have_many(:events) }
 
+  it "is not admin by default" do
+    expect(@user.admin).to be false
+  end
+
   it "#email returns a string" do
     expect(@user.email).to match 'user@example.com'
   end
