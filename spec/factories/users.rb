@@ -1,8 +1,11 @@
-# Read about factories at https://github.com/thoughtbot/factory_girl
+require 'faker'
 
 FactoryGirl.define do
   factory :user do
-    email "test@example.com"
+    email { Faker::Internet.email }
     password "please123"
+    factory :admin do
+      admin true
+    end
   end
 end

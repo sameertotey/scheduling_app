@@ -13,7 +13,9 @@ describe User, :type => :model do
   it { should have_one(:identity) }
 
   it { should respond_to(:profile) }
-  
+
+  it { should respond_to(:admin) }
+
   it { should have_one(:profile) }
 
   it { should have_many(:events) }
