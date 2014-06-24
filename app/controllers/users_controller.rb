@@ -1,13 +1,9 @@
 class UsersController < ApplicationController
   before_filter :authenticate_user!
   before_filter :set_user, only: [:show, :edit, :update, :destroy]
-  before_filter :validate_authorization_for_action, only: [:show, :edit, :update, :destroy]
-
+  before_filter :validate_authorization_for_action
 
   def index
-    unless current_user.admin?
-      redirect_to :back, :alert => "Access denied."
-    end
     @users = User.all
   end
 
@@ -20,7 +16,11 @@ class UsersController < ApplicationController
   def update
     if @user.update_attributes user_params
       flash[:notice] = "#{@user.email} was successfully updated."
-      redirect_to @user
+      if @user == current_user
+        redirect_to root_path
+      else
+        redirect_to @user
+      end
     else
       render 'edit'
     end
@@ -43,7 +43,7 @@ class UsersController < ApplicationController
   end
 
   def validate_authorization_for_action
-    unless @user == current_user || current_user.admin?
+    unless current_user.admin?
       redirect_to :back, :alert => "Access denied."
     end
   end
