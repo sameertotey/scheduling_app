@@ -23,7 +23,7 @@ class User < ActiveRecord::Base
       identity.user = user
       identity.save
       user.save
-      profile = Profile.create_for_oauth(user, auth)
+      profile = Profile.update_for_oauth(user, auth)
     end
     identity.user
   end       

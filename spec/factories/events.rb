@@ -2,10 +2,10 @@
 
 FactoryGirl.define do
   factory :event do
-    user nil
+    user 
     date "2014-05-24"
     shift 1
     comment "My Event"
-    event_type nil
+    event_type 
   end
 end
