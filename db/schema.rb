@@ -11,10 +11,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140617002503) do
+ActiveRecord::Schema.define(version: 20140627142726) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "configs", force: true do |t|
+    t.integer "num_docs_friday"
+    t.integer "max_num_full_days"
+    t.integer "max_initial_shifts"
+    t.boolean "friday_full_shift"
+  end
 
   create_table "event_types", force: true do |t|
     t.string   "name"
@@ -36,6 +43,11 @@ ActiveRecord::Schema.define(version: 20140617002503) do
 
   add_index "events", ["event_type_id"], name: "index_events_on_event_type_id", using: :btree
   add_index "events", ["user_id"], name: "index_events_on_user_id", using: :btree
+
+  create_table "holidays", force: true do |t|
+    t.string "day_str"
+    t.string "description"
+  end
 
   create_table "identities", force: true do |t|
     t.integer  "user_id"
