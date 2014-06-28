@@ -1,6 +1,6 @@
-class CreateConfig < ActiveRecord::Migration
+class CreateAppSettings < ActiveRecord::Migration
   def change
-    create_table :configs do |t|
+    create_table :app_settings do |t|
       t.integer :num_docs_friday
       t.integer :max_num_full_days
       t.integer :max_initial_shifts

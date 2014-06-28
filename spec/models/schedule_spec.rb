@@ -25,7 +25,8 @@ describe Schedule do
   context "make_events" do
     it "does not return non info events" do
       user = FactoryGirl.create(:user)
-      expect(Schedule.make_events(2014, 8, user)).to eq []
+      holiday = FactoryGirl.create(:holiday, day_str: "07-04")
+      expect(Schedule.make_events(2014, 7, user)).to eq []
     end
 
 

@@ -9,19 +9,22 @@ class Schedule
 
   def self.make_events(year, month, current_user)
     range = Date.new(year.to_i,month.to_i, 1)..Date.new(year.to_i, month.to_i, -1)
-    date = Date.new(year.to_i, month.to_i).beginning_of_month
+    holidays = Holiday.all_holidays_for_year(year).select do |holiday|
+      holiday.month == month
+    end
     event_type = EventType.find_or_create_by(name: "info")
     range.each do |date|
-      puts "days to start of week #{date.days_to_week_start}"
-      if date.days_to_week_start < 4
-        create_four_day_events(date, event_type, current_user)
-      elsif date.days_to_week_start == 4
-        puts "Friday"
-      elsif date.days_to_week_start == 5
-        puts "Saturday"
+      unless holidays.any? {|holiday| holiday == date}
+        if date.days_to_week_start < 4
+          create_four_day_events(date, event_type, current_user)
+        elsif date.days_to_week_start == 4
+          puts "Friday"
+        elsif date.days_to_week_start == 5
+          puts "Saturday"
+        end
       end
-          
     end
+    get_events(year, month)
     []
   end
 
@@ -30,7 +33,8 @@ class Schedule
   def self.create_four_day_events(date, event_type, current_user)
     (1..2).each do |shift|
       (1..2).each do |num|
-        event = Event.find_or_create_by({date: date, shift: shift, comment: "Dr#{num}", event_type: event_type, user: current_user})
+        event = Event.find_or_create_by({date: date, shift: shift, 
+          comment: "Dr#{num}", event_type: event_type, user: current_user})
       end
     end 
   end

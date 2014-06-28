@@ -16,7 +16,7 @@ ActiveRecord::Schema.define(version: 20140627142726) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "configs", force: true do |t|
+  create_table "app_settings", force: true do |t|
     t.integer "num_docs_friday"
     t.integer "max_num_full_days"
     t.integer "max_initial_shifts"
