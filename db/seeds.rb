@@ -20,3 +20,12 @@ holidays = Holiday.create([
   {day_str: '11-W+4-3', description: 'Fourth Thursday in November, Thanksgiving day'},
   {day_str: '12-25', description: 'December 25, Christmas'}
   ])  
+
+app_setting = AppSetting.create([
+  {num_docs_friday: 1,
+    max_num_full_days: 2,
+    max_initial_shifts: 5,
+    friday_full_shift: true}
+  ])
+  
+  

@@ -26,7 +26,12 @@ describe Schedule do
     it "does not return non info events" do
       user = FactoryGirl.create(:user)
       holiday = FactoryGirl.create(:holiday, day_str: "07-04")
+      app_setting = AppSetting.create({num_docs_friday: 1,
+       max_num_full_days: 2,
+      max_initial_shifts: 5,
+      friday_full_shift: true})
       expect(Schedule.make_events(2014, 7, user)).to eq []
+      p Event.count
     end
 
 

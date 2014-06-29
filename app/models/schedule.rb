@@ -18,13 +18,13 @@ class Schedule
         if date.days_to_week_start < 4
           create_four_day_events(date, event_type, current_user)
         elsif date.days_to_week_start == 4
-          puts "Friday"
+          create_friday_events(date, event_type, current_user)
         elsif date.days_to_week_start == 5
-          puts "Saturday"
+          create_saturday_events(date, event_type, current_user)
         end
       end
     end
-    get_events(year, month)
+    p get_events(year, month)
     []
   end
 
@@ -38,4 +38,23 @@ class Schedule
       end
     end 
   end
+
+  def self.create_friday_events(date, event_type, current_user)
+    (1..2).each do |shift|
+      (1..AppSetting.first.num_docs_friday).each do |num|
+        event = Event.find_or_create_by({date: date, shift: shift, 
+          comment: "Dr#{num}", event_type: event_type, user: current_user})
+      end
+    end 
+  end
+
+  def self.create_saturday_events(date, event_type, current_user)
+    (1..1).each do |shift|
+      (1..2).each do |num|
+        event = Event.find_or_create_by({date: date, shift: shift, 
+          comment: "Dr#{num}", event_type: event_type, user: current_user})
+      end
+    end 
+  end
+
 end

@@ -16,8 +16,8 @@
       <label for="event-shift"  class="col-sm-3 control-label">Shift</label>
       <div class="col-sm-9">
         <select class="form-control" id="event-shift" name="shift">
-          <option value="1" selected="<%= @shift == 1 %>">AM</option>
-          <option value="2" selected="<%= @shift == 2 %>">PM</option>
+          <option value="1" <%= "selected" if @shift == 1 %>>AM</option>
+          <option value="2" <%= "selected" if @shift == 2 %>>PM</option>
         </select>
       </div>
     </div>

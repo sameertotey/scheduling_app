@@ -1,10 +1,8 @@
 class Holiday < ActiveRecord::Base
   def self.all_holidays_for_year(year)
-    holidays = []
-    all.each do |holiday|
-      holidays << parse_day(year, holiday.day_str)
+    all.map do |holiday|
+      parse_day(year, holiday.day_str)
     end
-    holidays
   end
 
   private
