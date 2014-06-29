@@ -18,7 +18,8 @@ holidays = Holiday.create([
   {day_str: '07-04', description: 'July 4th, Inddependce day'},
   {day_str: '09-W+1-0', description: 'First Monday of September, Labor day'},
   {day_str: '11-W+4-3', description: 'Fourth Thursday in November, Thanksgiving day'},
-  {day_str: '12-25', description: 'December 25, Christmas'}
+  {day_str: '12-24', description: 'December 24, Christmas eve'},
+  {day_str: '12-25', description: 'December 25, Christmas day'}
   ])  
 
 app_setting = AppSetting.create([

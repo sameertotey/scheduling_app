@@ -9,7 +9,7 @@ class SchedulesController < ApplicationController
 
   def create
     puts params.inspect
-    @events = Schedule.make_events(params[:year], params[:month], current_user)
+    @events = Schedule.make_events(params[:year], params[:month])
     render 'list'    
   end
 end

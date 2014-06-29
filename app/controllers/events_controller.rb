@@ -3,7 +3,7 @@ class EventsController < ApplicationController
   respond_to :json
 
   def index
-    @events = Event.all
+    @events = Event.assigned
   end
 
   def create

@@ -82,7 +82,9 @@
           '09+1*1': "Labor Day",
           # // Fourth (+4*) Thursday (4) in November (11)
           '11+4*4': "Thanksgiving Day",
+          # // December 24
+          '24-12':  "Christmas eve",
           # // December 25
-          '25-12':  "Christmas"
+          '25-12':  "Christmas day"
         }
           
