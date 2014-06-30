@@ -13,7 +13,7 @@ class EventsController < ApplicationController
     if @event.save
       render "events/show"
     else
-      respond_with @event
+      render "events/errors", status: 422
     end
   end
 
@@ -33,7 +33,7 @@ class EventsController < ApplicationController
     if @event.update_attributes event_params
       render "events/show"
     else
-      respond_with @event
+      render "events/errors", status: 422
     end
   end
 

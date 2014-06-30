@@ -12,13 +12,18 @@
       App.mainRegion.show @layout
 
       @listenTo @newView, "new:event:cancel", ->
+        $('#errors').html()
         window.history.go(-2);
 
       @listenTo @newView, "new:event:submit", (args) ->
+        $('#errors').html()
         data = Backbone.Syphon.serialize args.view
         args.model.save data,
           success: (model, response, options) ->
             window.history.go(-2)
+          error: (model, response, options) ->
+            App.vent.trigger "new:event:error", response.responseJSON.errors
+    
     
     showPanel: (event) ->
       panelView = @getPanelView event

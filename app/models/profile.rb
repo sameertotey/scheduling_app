@@ -1,5 +1,6 @@
 class Profile < ActiveRecord::Base
   belongs_to :user
+  scope :with_role, -> (role_name) { where(role: role_name)}
 
   def self.update_for_oauth(user, auth)
 

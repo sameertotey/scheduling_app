@@ -10,6 +10,12 @@
     
   class Edit.Panel extends App.Views.ItemView
     template: "events/edit/templates/_panel"
+   
+    App.vent.on "update:event:error", (errors = {}) ->
+      text = ''
+      for name, array of errors
+        text += "<p>#{name}: #{array}<p>"
+      $('#errors').html(text)
 
   class Edit.Event extends App.Views.ItemView
     template: "events/edit/templates/_edit"

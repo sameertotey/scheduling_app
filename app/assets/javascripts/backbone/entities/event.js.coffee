@@ -23,6 +23,7 @@
       event = new Entities.Event
         id: id
       event.fetch()
+      console.log "event: ", event
       event
   
   App.reqres.setHandler "event:entities", (cb) ->

@@ -12,13 +12,10 @@
       new EventsApp.List.Controller
 
     newEvent: (date) ->
-      console.log "The date passed was #{date}"
       App.navigate Routes.new_event_path()
       new EventsApp.New.Controller date
 
     showEvent: (id, model) ->
-      # App.navigate Routes.edit_event_path(id)
-      # API.editEvent id
       new EventsApp.Show.Controller 
         id: id
         event: model
@@ -41,6 +38,7 @@
 
   App.vent.on "delete:event", (model) ->
     API.deleteEvent(model)
+
 
   App.vent.on "show:event", (model) ->
     if App.currentUser.id == model.get("user").id

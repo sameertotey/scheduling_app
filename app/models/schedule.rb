@@ -27,12 +27,15 @@ class Schedule
     get_events(year, month)
   end
 
-  def self.make_assignment(year, month)
+  def self.make_assignment(year, month, role)
+      assignees = Profile.with_role(role)
+      p assignees
       get_events(year, month).each do |event|
         if event.unassigned?
           assign(event)
         end
       end
+      assignees.first.user
   end
 
   private

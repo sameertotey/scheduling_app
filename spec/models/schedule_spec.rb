@@ -65,6 +65,14 @@ describe Schedule do
       expect(Schedule.assign_user(event, user1).user).to eq user1
     end
 
+    it "updates assigns an assignable profile to an unassigned event" do
+      user = FactoryGirl.create(:user)
+      profile = FactoryGirl.create(:profile, role: "A1", user: user)
+      event_type = FactoryGirl.create(:event_type, name: "info")
+      event = FactoryGirl.create(:event, date: Date.new(2014,7,3), user: nil, event_type: event_type)
+      expect(Schedule.make_assignment(2014, 7, "A1")).to eq user
+    end
+
   end
 
 end

@@ -15,13 +15,18 @@
       App.mainRegion.show @layout
 
       @listenTo @editView, "edit:event:cancel", ->
+        $('#errors').html()
         window.history.back()
 
       @listenTo @editView, "update:event:submit", (args) ->
+        $('#errors').html()
         data = Backbone.Syphon.serialize args.view
         args.model.save data,
           success: (model, response, options) ->
             window.history.back()
+          error: (model, response, options) ->
+            App.vent.trigger "update:event:error", response.responseJSON.errors
+
 
     showPanel: (event) ->
       panelView = @getPanelView event
@@ -41,3 +46,5 @@
     
     getLayoutView: ->
       new Edit.Layout
+
+
