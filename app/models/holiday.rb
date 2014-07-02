@@ -5,6 +5,19 @@ class Holiday < ActiveRecord::Base
     end
   end
 
+  def self.first_wednesday_of_month(year, month)
+    if month == Date.new(year, month).beginning_of_week.days_since(2).month
+      date = Date.new(year, month).beginning_of_week.days_since(2)
+    else
+      date = Date.new(year, month).beginning_of_week.days_since(9)
+    end
+    date
+  end
+
+  def self.second_wednesday_of_month(year, month)
+    first_wednesday_of_month(year, month).days_since(7)
+  end
+
   private
 
   def self.parse_day(year, day_str)

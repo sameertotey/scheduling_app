@@ -6,6 +6,20 @@ describe Holiday do
 
   it { should respond_to(:description) }
 
+  context "first_wednesday_of_month" do
+    it "returns first wednesday for a year and month" do
+      expect(Holiday.first_wednesday_of_month(2014,7)).to eq(Date.new(2014,7,2))
+      expect(Holiday.first_wednesday_of_month(2014,8)).to eq(Date.new(2014,8,6))
+    end
+  end
+
+  context "second_wednesday_of_month" do
+    it "returns second wednesday for a year and month" do
+      expect(Holiday.second_wednesday_of_month(2014,7)).to eq(Date.new(2014,7,9))
+      expect(Holiday.second_wednesday_of_month(2014,8)).to eq(Date.new(2014,8,13))
+    end
+  end
+
   describe "parse_day" do
     it "returns new years day" do 
       expect(Holiday.parse_day(2015, '01-01')).to eq Date.new(2015, 1, 1)

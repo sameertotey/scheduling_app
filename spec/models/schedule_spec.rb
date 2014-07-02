@@ -57,22 +57,85 @@ describe Schedule do
 
   end
 
-  context "assign info events" do
+  context "assign users to events" do
     it "updates info event to other user" do
       user1 = FactoryGirl.create(:user)
       event_type = FactoryGirl.create(:event_type, name: "info")
       event = FactoryGirl.create(:event, date: Date.new(2014,7,3), user: nil, event_type: event_type)
-      expect(Schedule.assign_user(event, user1).user).to eq user1
+      expect(Schedule.assign_user(event, user1)).to be true
+      expect(Event.find(event.id).user).to eq user1
     end
 
-    it "updates assigns an assignable profile to an unassigned event" do
-      user = FactoryGirl.create(:user)
-      profile = FactoryGirl.create(:profile, role: "A1", user: user)
-      event_type = FactoryGirl.create(:event_type, name: "info")
-      event = FactoryGirl.create(:event, date: Date.new(2014,7,3), user: nil, event_type: event_type)
-      expect(Schedule.make_assignment(2014, 7, "A1")).to eq user
+    it "returns failure if validations fail" do
+      user1 = FactoryGirl.create(:user)
+      event_type_info = FactoryGirl.create(:event_type, name: "info")
+      event_type_no = FactoryGirl.create(:event_type, name: "no")
+      event_no = FactoryGirl.create(:event, date: Date.new(2014,7,3), user: user1, event_type: event_type_no)
+      event_info = FactoryGirl.create(:event, date: Date.new(2014,7,3), user: nil, event_type: event_type_info)
+      expect(Schedule.assign_user(event_info, user1)).to be false
+      expect(Event.find(event_info.id).user).to eq nil
     end
 
   end
+
+  context "assign_yes_to_slot" do
+    it "assigns a yes request to a user whenever possible" do
+      allow(Schedule).to receive(:assign_user)
+      user = FactoryGirl.create(:user)
+      event_type_info = FactoryGirl.create(:event_type, name: "info")
+      event_type_yes = FactoryGirl.create(:event_type, name: "yes")
+      event_yes_assigned = FactoryGirl.create(:event, date: Date.new(2014,7,3), shift: 1, user: user, event_type: event_type_yes)
+      event_info_unassigned = FactoryGirl.create(:event, date: Date.new(2014,7,3), shift: 1, comment: "Dr1", user: nil, event_type: event_type_info)
+      Schedule.assign_yes_to_slot(event_yes_assigned)
+      expect(Schedule).to have_received(:assign_user)      
+    end
+  end
+
+  context "make_assignment" do
+    it "calls all the steps" do
+      user = FactoryGirl.create(:user)
+      event_type_yes = FactoryGirl.create(:event_type, name: "yes")
+      event_yes_assigned = FactoryGirl.create(:event, date: Date.new(2014,7,3), shift: 1, user: user, event_type: event_type_yes)
+      allow(Schedule).to receive(:assign_yes_to_slot)
+      allow(Schedule).to receive(:assign_fridays)
+      allow(Schedule).to receive(:assign_saturdays)
+      allow(Schedule).to receive(:assign_wednesdays)
+      allow(Schedule).to receive(:assign_full_days)
+      allow(Schedule).to receive(:assign_remainder)
+      Schedule.make_assignment(2014, 7,)
+      expect(Schedule).to have_received(:assign_yes_to_slot)
+      expect(Schedule).to have_received(:assign_fridays)
+      expect(Schedule).to have_received(:assign_saturdays)
+      expect(Schedule).to have_received(:assign_wednesdays)
+      expect(Schedule).to have_received(:assign_full_days)
+      expect(Schedule).to have_received(:assign_remainder)
+    end
+  end
+
+  context "assign_wednesdays" do
+    before :each do
+      users = FactoryGirl.create_list(:user, 4)
+      event_type_info = FactoryGirl.create(:event_type, name: "info")
+      event_type_yes = FactoryGirl.create(:event_type, name: "yes")
+      event1 = FactoryGirl.create(:event, date: Date.new(2014,7,2), shift: 1, comment: "Dr1", user: nil, event_type: event_type_info)
+      event2 = FactoryGirl.create(:event, date: Date.new(2014,7,2), shift: 1, comment: "Dr2", user: nil, event_type: event_type_info)
+      event3 = FactoryGirl.create(:event, date: Date.new(2014,7,2), shift: 2, comment: "Dr1", user: nil, event_type: event_type_info)
+      event4 = FactoryGirl.create(:event, date: Date.new(2014,7,2), shift: 2, comment: "Dr2", user: nil, event_type: event_type_info)
+
+    end
+    it "calls assign_round_robin_for_date" do
+      allow(Schedule).to receive(:assign_round_robin_for_date)
+      Schedule.assign_wednesdays(2014,7)
+      expect(Schedule).to have_received(:assign_round_robin_for_date).twice
+    end
+
+    it "assigns events for a date to all users" do
+      expect(Event.unassigned.count).to eq 4
+      Schedule.assign_round_robin_for_date(Date.new(2014,7,2))
+      expect(Event.unassigned.count).to eq 0
+      expect(Event.assigned.count).to eq 4
+    end
+  end
+
 
 end
