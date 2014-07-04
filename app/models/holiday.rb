@@ -6,16 +6,34 @@ class Holiday < ActiveRecord::Base
   end
 
   def self.first_wednesday_of_month(year, month)
-    if month == Date.new(year, month).beginning_of_week.days_since(2).month
-      date = Date.new(year, month).beginning_of_week.days_since(2)
-    else
-      date = Date.new(year, month).beginning_of_week.days_since(9)
-    end
-    date
+    date = Date.new(year, month)
+    date += (3 - date.wday) % 7  
   end
 
   def self.second_wednesday_of_month(year, month)
     first_wednesday_of_month(year, month).days_since(7)
+  end
+
+  def self.all_fridays_of_month(year, month)
+    date = Date.new(year, month)
+    date += (5 - date.wday) % 7  
+    dates = []
+    while date.month == month
+      dates << date
+      date += 7
+    end
+    dates
+  end
+
+  def self.all_saturdays_of_month(year, month)
+    date = Date.new(year, month)
+    date += (6 - date.wday) % 7  
+    dates = []
+    while date.month == month
+      dates << date
+      date += 7
+    end
+    dates
   end
 
   private

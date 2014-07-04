@@ -10,13 +10,28 @@ describe Holiday do
     it "returns first wednesday for a year and month" do
       expect(Holiday.first_wednesday_of_month(2014,7)).to eq(Date.new(2014,7,2))
       expect(Holiday.first_wednesday_of_month(2014,8)).to eq(Date.new(2014,8,6))
+      expect(Holiday.first_wednesday_of_month(2014,9)).to eq(Date.new(2014,9,3))
     end
   end
 
   context "second_wednesday_of_month" do
     it "returns second wednesday for a year and month" do
-      expect(Holiday.second_wednesday_of_month(2014,7)).to eq(Date.new(2014,7,9))
-      expect(Holiday.second_wednesday_of_month(2014,8)).to eq(Date.new(2014,8,13))
+      expect(Holiday.second_wednesday_of_month(2014,10)).to eq(Date.new(2014,10,8))
+      expect(Holiday.second_wednesday_of_month(2014,11)).to eq(Date.new(2014,11,12))
+    end
+  end
+
+  context "all_fridays_of_month" do
+    it "returns all fridays in a given year and month" do
+      expect(Holiday.all_fridays_of_month(2014,12)).to eq([Date.new(2014,12,5),
+        Date.new(2014,12,12), Date.new(2014,12,19) ,Date.new(2014,12,26)])
+    end
+  end
+
+  context "all_saturdays_of_month" do
+    it "returns all fridays in a given year and month" do
+      expect(Holiday.all_saturdays_of_month(2014,10)).to eq([Date.new(2014,10,4),
+        Date.new(2014,10,11), Date.new(2014,10,18) ,Date.new(2014,10,25)])
     end
   end
 

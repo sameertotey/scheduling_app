@@ -91,7 +91,7 @@ describe Event do
     end
   end
 
-  context "conflicting_events" do
+  context "conflicting_event_types" do
     before :each do
       @event_type_yes = FactoryGirl.create(:event_type, name: "yes")
       @event_type_no = FactoryGirl.create(:event_type, name: "no")
@@ -116,4 +116,39 @@ describe Event do
       expect(event2).to have(1).errors_on(:event_type)
     end
   end
+
+  context "conflicting_shifts" do
+    before :each do
+      @event_type_info = FactoryGirl.create(:event_type, name: "info")
+      @user = FactoryGirl.create(:user)
+    end
+
+    it "finds yes-no conflict events" do
+      event1 = FactoryGirl.create(:event, user: @user, shift: 1, date: Date.new(2014, 7, 3), event_type: @event_type_info)
+      event2 = FactoryGirl.build(:event, user: @user, shift: 1, date: Date.new(2014, 7, 3), event_type: @event_type_info)
+      expect(event2).to have(1).errors_on(:shift)
+    end
+  end
+
+  context "assign users to events" do
+    it "updates info event to other user" do
+      user1 = FactoryGirl.create(:user)
+      event_type = FactoryGirl.create(:event_type, name: "info")
+      event = FactoryGirl.create(:event, date: Date.new(2014,7,3), user: nil, event_type: event_type)
+      expect(Event.assign_user(event, user1)).to be true
+      expect(Event.find(event.id).user).to eq user1
+    end
+
+    it "returns failure if validations fail" do
+      user1 = FactoryGirl.create(:user)
+      event_type_info = FactoryGirl.create(:event_type, name: "info")
+      event_type_no = FactoryGirl.create(:event_type, name: "no")
+      event_no = FactoryGirl.create(:event, date: Date.new(2014,7,3), user: user1, event_type: event_type_no)
+      event_info = FactoryGirl.create(:event, date: Date.new(2014,7,3), user: nil, event_type: event_type_info)
+      expect(Event.assign_user(event_info, user1)).to be false
+      expect(Event.find(event_info.id).user).to eq nil
+    end
+
+  end
+
 end
