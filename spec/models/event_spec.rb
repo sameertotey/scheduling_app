@@ -16,7 +16,6 @@ describe Event do
     end
   end
 
-
   context "get_events_for_range" do
     before :each do
       @event = FactoryGirl.create(:event)
@@ -73,12 +72,7 @@ describe Event do
       @event.date = Date.new(2014, 8, 15)
       @event.event_type = @event_type
       @event.save
-      p Event.count
-      p Event.all
-      p EventType.count
-      p EventType.all
       eve = Event.get_events_range_type(@range, "info")
-      p eve
       expect(Event.get_events_range_type(@range, "info").count).to eq 1
       expect(Event.get_events_range_type(@range, "info")).to eq [@event]
     end
@@ -148,7 +142,29 @@ describe Event do
       expect(Event.assign_user(event_info, user1)).to be false
       expect(Event.find(event_info.id).user).to eq nil
     end
+  end
 
+  context "assign users to list of events" do
+    it "updates info event to given user" do
+      user1 = FactoryGirl.create(:user)
+      event_type = FactoryGirl.create(:event_type, name: "info")
+      event1 = FactoryGirl.create(:event, date: Date.new(2014,7,3), user: nil, shift: 1, event_type: event_type)
+      event2 = FactoryGirl.create(:event, date: Date.new(2014,7,3), user: nil, shift: 2, event_type: event_type)
+      Event.assign_user_to_list([event1, event2], user1)
+      expect(Event.find(event1.id).user).to eq user1
+      expect(Event.find(event2.id).user).to eq user1
+    end
+
+    it "fails transaction if validations fail" do
+      user1 = FactoryGirl.create(:user)
+      event_type_info = FactoryGirl.create(:event_type, name: "info")
+      event_type_no = FactoryGirl.create(:event_type, name: "no")
+      event_no = FactoryGirl.create(:event, date: Date.new(2014,7,3), user: user1, event_type: event_type_no)
+      event1 = FactoryGirl.create(:event, date: Date.new(2014,7,3), user: nil, shift: 1, event_type: event_type_info)
+      event2 = FactoryGirl.create(:event, date: Date.new(2014,7,3), user: nil, shift: 2, event_type: event_type_info)
+      expect{Event.assign_user_to_list([event1, event2], user1)}.to raise_exception
+      expect(Event.find(event1.id).user).to eq nil
+    end
   end
 
 end

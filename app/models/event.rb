@@ -6,6 +6,7 @@ class Event < ActiveRecord::Base
   scope :unassigned, -> {where(user_id: nil)}
   validate :conflicting_event_types
   validate :conflicting_shifts
+  after_rollback :transaction_failed
 
   def self.get_events_for_range(range)
     where({date: range})
@@ -37,6 +38,12 @@ class Event < ActiveRecord::Base
       end
     end
   end
+
+  private
+
+  def transaction_failed
+    logger.warn "Event transaction failed #{self.inspect}"
+  end  
 
   def conflicting_event_types
     if (event_type.name == "no") && Event.find_by(user: user, date: date, shift: shift, event_type: EventType.find_by(name: "yes"))

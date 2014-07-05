@@ -40,8 +40,8 @@ class Schedule
       end
       assign_saturdays(year, month)
       assign_full_days(range)
-      assign_remainder
-
+      assign_full_days(range)
+      assign_remainder(range)
   end
 
   private
@@ -121,11 +121,29 @@ class Schedule
     range.each do |date|
       events = Event.get_events_range_type(date, "info").unassigned.to_a
       event_shift1, event_shift2 = events.partition {|event| event.shift == 1}
-      p event_shift1, event_shift2
       unless (event_shift1.empty? || event_shift2.empty?)
-        Event.assign_user_to_list([event_shift1.first, event_shift2.first], users.next)
+        begin
+          Event.assign_user_to_list([event_shift1.first, event_shift2.first], users.next)
+        rescue
+          Rails.logger.warn "full day assignment to a user failed!"
+        end
       end
     end    
+  end
+
+  def self.assign_remainder(range)
+    assignees = get_assignees
+    return if assignees.empty?
+    events = Event.get_events_range_type(range, "info").to_a
+    events.each do |event|
+      users = get_next_assignee assignees
+      sorted_users = users.cycle
+      attempts = 1
+      until event.assigned? || attempts > assignees.count
+        event.user = nil unless Event.assign_user(event, sorted_users.next)
+        attempts += 1
+      end    
+    end
   end
 
   def self.assign_round_robin_for_date(date)
@@ -146,6 +164,14 @@ class Schedule
     User.all
   end
 
+  def self.get_next_assignee(assignees)
+    assignments = {}
+    assignees.each do |assignee| 
+      assignments[assignee] = assignee.events ? assignee.events.count : 0
+    end
+    assignments.sort.map{ |pair| pair[0]}
+  end
+
   def self.assign_yes_to_slot(event)
     event_type = EventType.find_by(name: "info")
     (1..2).each do |num|
@@ -158,5 +184,4 @@ class Schedule
       end
     end
   end
-
 end

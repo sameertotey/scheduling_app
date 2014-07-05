@@ -91,7 +91,7 @@ describe Schedule do
       expect(Schedule).to have_received(:assign_fridays)
       expect(Schedule).to have_received(:assign_saturdays)
       expect(Schedule).to have_received(:assign_wednesdays)
-      expect(Schedule).to have_received(:assign_full_days)
+      expect(Schedule).to have_received(:assign_full_days).at_least(:once)
       expect(Schedule).to have_received(:assign_remainder)
     end
   end
@@ -136,6 +136,58 @@ describe Schedule do
     end
   end
 
+  context "assign_fridays" do
+    before :each do
+      users = FactoryGirl.create_list(:user, 4)
+      event_type_info = FactoryGirl.create(:event_type, name: "info")
+      event_type_yes = FactoryGirl.create(:event_type, name: "yes")
+      event1 = FactoryGirl.create(:event, date: Date.new(2014,7,11), shift: 1, comment: "Dr1", user: nil, event_type: event_type_info)
+      event2 = FactoryGirl.create(:event, date: Date.new(2014,7,18), shift: 2, comment: "Dr1", user: nil, event_type: event_type_info)
+      event3 = FactoryGirl.create(:event, date: Date.new(2014,7,11), shift: 1, comment: "Dr1", user: nil, event_type: event_type_info)
+      event4 = FactoryGirl.create(:event, date: Date.new(2014,7,18), shift: 2, comment: "Dr1", user: nil, event_type: event_type_info)
+
+    end
+
+    it "assigns events for a date to all users expect user who has declined the shifts" do
+      expect(Event.unassigned.count).to eq 4
+      Schedule.assign_fridays(2014, 7)
+      expect(Event.unassigned.count).to eq 0
+    end
+  end
+
+  context "assign_saturdays" do
+    before :each do
+      users = FactoryGirl.create_list(:user, 4)
+      event_type_info = FactoryGirl.create(:event_type, name: "info")
+      event_type_yes = FactoryGirl.create(:event_type, name: "yes")
+      event1 = FactoryGirl.create(:event, date: Date.new(2014,7,12), shift: 1, comment: "Dr1", user: nil, event_type: event_type_info)
+      event4 = FactoryGirl.create(:event, date: Date.new(2014,7,12), shift: 1, comment: "Dr2", user: nil, event_type: event_type_info)
+
+    end
+
+    it "assigns events for a date to all users expect user who has declined the shifts" do
+      expect(Event.unassigned.count).to eq 2
+      Schedule.assign_saturdays(2014, 7)
+      expect(Event.unassigned.count).to eq 0
+    end
+  end
+
+  context "assign_remainder" do
+    before :each do
+      users = FactoryGirl.create_list(:user, 4)
+      event_type_info = FactoryGirl.create(:event_type, name: "info")
+      event1 = FactoryGirl.create(:event, date: Date.new(2014,7,15), shift: 1, comment: "Dr1", user: nil, event_type: event_type_info)
+      event2 = FactoryGirl.create(:event, date: Date.new(2014,7,15), shift: 2, comment: "Dr2", user: nil, event_type: event_type_info)
+
+    end
+
+    it "assigns events for a date to all users expect user who has declined the shifts" do
+      expect(Event.unassigned.count).to eq 2
+      Schedule.assign_remainder(Date.new(2014, 7, 1)..Date.new(2014, 7, -1))
+      expect(Event.unassigned.count).to eq 0
+    end
+  end
+
   context "assign_full_days" do
     before :each do
       users = FactoryGirl.create_list(:user, 4)
@@ -156,4 +208,23 @@ describe Schedule do
     end
   end
 
+  context "get_assignees" do
+    before :each do
+      users = FactoryGirl.create_list(:user, 4)
+    end
+
+    it "returns all assignees" do
+      expect(Schedule.get_assignees.count).to eq 4
+    end
+  end
+
+  context "get_next_assignee" do
+    before :each do
+      @user1 = FactoryGirl.create(:user)
+    end
+
+    it "returns single assignee" do
+      expect(Schedule.get_next_assignee(User.all)).to eq [@user1]
+    end
+  end
 end
