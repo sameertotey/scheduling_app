@@ -1,0 +1,23 @@
+
+- unless @app_settings.errors.empty? 
+  %p#warning
+    = "Errors prevented application settings from being #{controller.action_name}d:"
+    %ul 
+      - @app_settings.errors.full_messages.each do |error|
+        %li= error
+
+= form_for @app_settings, url: app_settings_path do |f| 
+  = f.label :num_docs_friday, "Number of doctors on friday:"
+  = f.text_field :num_docs_friday 
+  %br
+  = f.label :max_num_full_days, "Number of full day shifts per week:"
+  = f.text_field :max_num_full_days 
+  %br
+  = f.label :max_initial_shifts, "Number of initial shifts per week:"
+  = f.text_field :max_initial_shifts 
+  %br
+  = f.label :friday_full_shift, "Full shits on friday?"
+  = f.check_box :friday_full_shift 
+  %br
+  = f.submit caption
+

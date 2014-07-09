@@ -189,7 +189,7 @@ describe Schedule do
   end
 
   context "assign_full_days" do
-    before :each do
+    it "calls assign_round_robin_for_date" do
       users = FactoryGirl.create_list(:user, 4)
       event_type_info = FactoryGirl.create(:event_type, name: "info")
       event_type_yes = FactoryGirl.create(:event_type, name: "yes")
@@ -197,14 +197,22 @@ describe Schedule do
       event2 = FactoryGirl.create(:event, date: Date.new(2014,7,2), shift: 1, comment: "Dr2", user: nil, event_type: event_type_info)
       event3 = FactoryGirl.create(:event, date: Date.new(2014,7,2), shift: 2, comment: "Dr1", user: nil, event_type: event_type_info)
       event4 = FactoryGirl.create(:event, date: Date.new(2014,7,2), shift: 2, comment: "Dr2", user: nil, event_type: event_type_info)
-
-    end
-    it "calls assign_round_robin_for_date" do
       expect(Event.unassigned.count).to eq 4
       Schedule.assign_full_days(Date.new(2014,7,2)..Date.new(2014,7,2))
       expect(Event.unassigned.count).to eq 2
+    end
+
+    it "fails the full transaction if any shift has error" do
+      user = FactoryGirl.create(:user)
+      event_type_info = FactoryGirl.create(:event_type, name: "info")
+      event_type_no = FactoryGirl.create(:event_type, name: "no")      
+      event1 = FactoryGirl.create(:event, date: Date.new(2014,7,2), shift: 1, comment: "Dr1", user: nil, event_type: event_type_info)
+      event2 = FactoryGirl.create(:event, date: Date.new(2014,7,2), shift: 2, comment: "Dr1", user: nil, event_type: event_type_info)
+      event2_no = FactoryGirl.create(:event, date: Date.new(2014,7,2), shift: 2, comment: "Dr1", user: user, event_type: event_type_no)
+
+      expect(Event.unassigned.count).to eq 2
       Schedule.assign_full_days(Date.new(2014,7,2)..Date.new(2014,7,2))
-      expect(Event.unassigned.count).to eq 0
+      expect(Event.unassigned.count).to eq 2
     end
   end
 

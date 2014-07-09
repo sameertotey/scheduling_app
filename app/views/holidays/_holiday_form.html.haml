@@ -1,0 +1,15 @@
+- unless @holiday.errors.empty? 
+  %p#warning
+    = "Errors prevented this holiday from being #{controller.action_name}d:"
+    %ul 
+      - @holiday.errors.full_messages.each do |error|
+        %li= error
+
+= form_for @holiday do |f| 
+  = f.label :day_str, "Holiday Code"
+  = f.text_field :day_str 
+  = f.label :description 
+  = f.text_area :description
+  %br
+  = f.submit caption
+

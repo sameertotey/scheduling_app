@@ -1,0 +1,17 @@
+.container
+  .row
+    %h3 Holidays
+    .column
+      %table.table
+        %thead
+          %tr
+            %td
+              Holiday Code
+            %td
+              Description
+        %tbody
+          - @holidays.each do |holiday|
+            %tr= render holiday
+
+= link_to 'Add new holiday', new_holiday_path
+          

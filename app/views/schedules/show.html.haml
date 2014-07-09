@@ -1,0 +1,9 @@
+%h3 Make a Schedule
+
+= form_for :schedule do |f|
+  = f.label :year
+  = f.number_field :year, value: DateTime.now.year
+  = f.label :month
+  = f.number_field :month, in: 1..12, value: DateTime.now.month
+  %br
+  = f.submit "make schedule"

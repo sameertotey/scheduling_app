@@ -95,12 +95,13 @@ describe Holiday do
        {day_str: '07-04', description: 'July 4th, Inddependce day'},
        {day_str: '09-W+1-0', description: 'First Monday of September, Labor day'},
        {day_str: '11-W+4-3', description: 'Fourth Thursday in November, Thanksgiving day'},
-       {day_str: '12-25', description: 'December 25, Christmas'}
+       {day_str: '12-24', description: 'December 24, Christmas eve'},
+       {day_str: '12-25', description: 'December 25, Christmas day'}
        ])  
       expect(Holiday.all_holidays_for_year(2015)).to eq [Date.new(2015, 1, 1), Date.new(2015, 5, 25),Date.new(2015, 7, 4),
-                                          Date.new(2015, 9, 7),Date.new(2015, 11, 26),Date.new(2015, 12, 25)]
+                                          Date.new(2015, 9, 7),Date.new(2015, 11, 26),Date.new(2015, 12, 24),Date.new(2015, 12, 25)]
       expect(Holiday.all_holidays_for_year(2016)).to eq [Date.new(2016, 1, 1), Date.new(2016, 5, 30),Date.new(2016, 7, 4),
-                                          Date.new(2016, 9, 5),Date.new(2016, 11, 24),Date.new(2016, 12, 25)]
+                                          Date.new(2016, 9, 5),Date.new(2016, 11, 24),Date.new(2016, 12, 24),Date.new(2016, 12, 25)]
     end
   end
 end

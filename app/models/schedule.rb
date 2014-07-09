@@ -9,7 +9,7 @@ class Schedule
 
   def self.make_events(year, month)
     range = Date.new(year.to_i,month.to_i, 1)..Date.new(year.to_i, month.to_i, -1)
-    holidays = Holiday.all_holidays_for_year(year).select do |holiday|
+    holidays = Holiday.all_holidays_for_year(year.to_i).select do |holiday|
       holiday.month == month
     end
     event_type = EventType.find_or_create_by(name: "info")

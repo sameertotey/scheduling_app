@@ -17,6 +17,9 @@
         { name: "Sign out", url: Routes.destroy_user_session_path(), fragment: false, signed_in: true, admin: false}
 
         { name: "Users", url: Routes.users_path(), fragment: false, signed_in: true, admin: true}
+        { name: "Holidays", url: Routes.holidays_path(), fragment: false, signed_in: true, admin: true}
+        { name: "App setting", url: Routes.app_settings_path(), fragment: false, signed_in: true, admin: true}
+        { name: "Schedule", url: Routes.schedule_path(), fragment: false, signed_in: true, admin: true}
       ]
 
   App.reqres.setHandler "header:entities", ->

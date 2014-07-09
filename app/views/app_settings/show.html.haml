@@ -1,0 +1,9 @@
+%h2 Application settings
+%br
+%h4 Number of doctors working friday: #{@app_settings.num_docs_friday}
+%h4 Full days per week: #{@app_settings.max_num_full_days}
+%h4 Initial number of shifts per week: #{@app_settings.max_initial_shifts}
+%h4 Full day friday shifts? #{@app_settings.friday_full_shift}
+%br
+=link_to 'Edit Application Settings', edit_app_settings_path
+%br

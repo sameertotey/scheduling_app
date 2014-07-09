@@ -1,0 +1,14 @@
+%h2 Details about Holiday
+%h3 Holiday Code: #{@holiday.day_str}
+ 
+%h3 Description: 
+
+%p#description 
+  =@holiday.description
+
+%br
+=link_to 'Edit info', edit_holiday_path
+%br
+=button_to 'Delete', @holiday, method: :delete, data: {confirm: 'Are you sure?'} 
+%br
+=link_to 'Back to holiday list', holidays_path
