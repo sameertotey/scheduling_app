@@ -11,7 +11,7 @@ describe "Schedule json api", :type => :api do
 
   context "GET by visitor" do
     it "receives authenticatin message" do
-      get "/schedule/2014/08.json"
+      get "/schedule.json"
       expect(last_response.status).to eq 401
       expect(JSON.parse(last_response.body)["error"]).to match /You need to sign in or sign up before continuing/
     end
@@ -22,7 +22,7 @@ describe "Schedule json api", :type => :api do
       event.date = Date.new(2014, 8, 15)
       event.save
       login_as(user, :scope => :user, :run_callbacks => false)
-      get "/schedule/2014/08.json"
+      get "/schedule.json"
       events = JSON.parse(last_response.body)
       expect(last_response.status).to eq 200
       puts "events: #{events.inspect}"

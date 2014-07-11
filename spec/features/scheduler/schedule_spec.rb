@@ -5,7 +5,7 @@ feature 'Receive schedule for a month' do
   scenario 'visitor receives authentication require message' do
     year = 2014
     month = 8
-    visit "/schedule/2014/08.json"
+    visit "/schedule"
     expect(page).to have_content "You need to sign in or sign up before continuing"
   end
 
@@ -15,6 +15,6 @@ feature 'Receive schedule for a month' do
     signin(user.email, user.password)
     year = 2014
     month = 8
-    visit "/schedule/2014/08.json"
+    visit "/schedule"
   end
 end

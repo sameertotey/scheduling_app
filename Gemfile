@@ -88,3 +88,4 @@ gem 'js-routes'
 gem "codeclimate-test-reporter", group: :test, require: nil
 gem 'simplecov', :require => false, :group => :test
 
+gem 'sidekiq'

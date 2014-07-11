@@ -24,6 +24,7 @@ class Schedule
         end
       end
     end
+    make_assignment(year, month)
     get_events(year, month)
   end
 
