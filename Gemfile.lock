@@ -402,6 +402,7 @@ DEPENDENCIES
   rabl
   rails (= 4.1.1)
   rails_12factor
+  redis
   rspec-collection_matchers
   rspec-rails
   sass-rails (~> 4.0.3)
