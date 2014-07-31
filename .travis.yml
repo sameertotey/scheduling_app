@@ -22,3 +22,6 @@ before_install:
   - sleep 3 # give xvfb some time to start
   # - rackup  # start a Web server
   - sleep 3 # give Web server some time to bind to sockets, etc
+
+env:
+  - REDISTOGO_URL: "redis://localhost:6379/"
