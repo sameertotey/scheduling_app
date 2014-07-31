@@ -522,3 +522,52 @@ a.cal-event-week {
 .cal-month-day:hover>.add-event-link{
   display: block;
 }
+
+.events-display{
+  display: block;
+  position: absolute;
+  top: 33%;
+  left: 10%;
+  width: 80%;
+  height: 50%;
+}
+span.r11{
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  color: orangered;
+  background-color: black;
+  width: 50%;
+  height: 50%;
+}
+span.r12{
+   display: block;
+   position: absolute;
+   top: 50%;
+   left: 0;
+   color: green;
+   background-color: red;
+   width: 50%;
+   height: 50%;
+ }
+span.r21{
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 50%;
+  color: blue;
+  background-color: yellow;
+  width: 50%;
+  height: 50%;
+}
+span.r22{
+  display: block;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  color: yellow;
+  background-color: grey;
+  width: 50%;
+  height: 50%;
+}

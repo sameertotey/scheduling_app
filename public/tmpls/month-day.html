@@ -7,7 +7,14 @@
 				<a href="<%= event.url ? event.url : 'javascript:void(0)' %>" data-event-id="<%= event.id %>" data-event-class="<%= event['class'] %>"
 					class="pull-left event <%= event['class'] %>" data-toggle="tooltip"
 					title="<%= event.title %>"></a>
-			<% }); %>
-		</div>
-	<% } %>
+      <% }); %>
+    </div>
+    <div class="events-display" >
+      <% _.each(events, function(event) { %>
+        <% if (event.display) { %>
+          <span class="<%= event.comment.slice(1) + event.shift %>"> <%= event.initials %> </span>
+  	    <% }; %>
+      <% }); %>
+    </div>
+  <% }; %>
 </div>

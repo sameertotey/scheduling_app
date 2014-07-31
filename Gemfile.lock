@@ -29,11 +29,10 @@ GEM
       tzinfo (~> 1.1)
     addressable (2.3.6)
     arel (5.0.1.20140414130214)
-    awesome_print (1.2.0)
+    autoprefixer-rails (2.2.0.20140727)
+      execjs
     bcrypt (3.1.7)
-    binding_of_caller (0.7.2)
-      debug_inspector (>= 0.0.1)
-    bootstrap-sass (3.2.0.0)
+    bootstrap-sass (3.2.0.1)
       sass (~> 3.2)
     builder (3.2.2)
     capybara (2.4.1)
@@ -53,27 +52,20 @@ GEM
     coffee-rails (4.0.1)
       coffee-script (>= 2.2.0)
       railties (>= 4.0.0, < 5.0)
-    coffee-script (2.2.0)
+    coffee-script (2.3.0)
       coffee-script-source
       execjs
-    coffee-script-source (1.7.0)
-    columnize (0.8.9)
-    compass (0.12.6)
+    coffee-script-source (1.7.1)
+    compass (0.12.7)
       chunky_png (~> 1.2)
       fssm (>= 0.2.7)
       sass (~> 3.2.19)
-    compass-rails (1.1.7)
+    compass-rails (2.0.0)
       compass (>= 0.12.2)
-      sprockets (<= 2.11.0)
     connection_pool (2.0.0)
-    coolline (0.4.4)
     database_cleaner (1.3.0)
-    debug_inspector (0.0.2)
-    debugger (1.6.8)
-      columnize (>= 0.3.1)
-      debugger-linecache (~> 1.2.0)
-      debugger-ruby_core_source (~> 1.3.5)
-    debugger-linecache (1.2.0)
+    debase (0.0.9)
+      debugger-ruby_core_source
     debugger-ruby_core_source (1.3.5)
     devise (3.2.4)
       bcrypt (~> 3.0)
@@ -82,7 +74,6 @@ GEM
       thread_safe (~> 0.1)
       warden (~> 1.2.3)
     diff-lcs (1.2.5)
-    diffy (3.0.5)
     docile (1.1.5)
     eco (1.0.0)
       coffee-script
@@ -96,7 +87,7 @@ GEM
     factory_girl_rails (4.4.1)
       factory_girl (~> 4.4.0)
       railties (>= 3.0.0)
-    faker (1.4.1)
+    faker (1.4.2)
       i18n (~> 0.5)
     faraday (0.9.0)
       multipart-post (>= 1.2, < 3)
@@ -106,49 +97,30 @@ GEM
       rails (>= 3, < 5)
     formatador (0.2.5)
     fssm (0.2.10)
-    gon (5.1.0)
+    gon (5.0.4)
       actionpack (>= 2.3.0)
       json
-      oj
-      request_store (>= 1.0.5)
-    grit (2.5.0)
-      diff-lcs (~> 1.1)
-      mime-types (~> 1.15)
-      posix-spawn (~> 0.3.6)
     guard (2.6.1)
       formatador (>= 0.2.4)
       listen (~> 2.7)
       lumberjack (~> 1.0)
       pry (>= 0.9.12)
       thor (>= 0.18.1)
-    guard-rspec (4.2.10)
+    guard-rspec (4.3.1)
       guard (~> 2.1)
       rspec (>= 2.14, < 4.0)
     haml (4.0.5)
       tilt
-    hashie (2.1.2)
+    hashie (3.2.0)
     hike (1.2.3)
-    hirb (0.7.2)
-    i18n (0.6.9)
-    jasmine-core (2.0.0)
+    i18n (0.6.11)
+    jasmine-core (2.0.1)
     jasmine-rails (0.9.1)
       jasmine-core (>= 1.3, < 3.0)
       phantomjs
       railties (>= 3.1.0)
       sprockets-rails
-    jazz_hands (0.5.2)
-      awesome_print (~> 1.2)
-      coolline (>= 0.4.2)
-      hirb (~> 0.7.1)
-      pry (~> 0.9.12)
-      pry-debugger (~> 0.2.2)
-      pry-doc (~> 0.4.6)
-      pry-git (~> 0.2.3)
-      pry-rails (~> 0.3.2)
-      pry-remote (>= 0.1.7)
-      pry-stack_explorer (~> 0.4.9)
-      railties (>= 3.0, < 5.0)
-    jbuilder (2.1.2)
+    jbuilder (2.1.3)
       activesupport (>= 3.0.0, < 5)
       multi_json (~> 1.2)
     jquery-rails (3.1.1)
@@ -177,36 +149,36 @@ GEM
     multi_json (1.10.1)
     multi_xml (0.5.5)
     multipart-post (2.0.0)
-    nokogiri (1.6.2.1)
+    nokogiri (1.6.3.1)
       mini_portile (= 0.6.0)
     oauth (0.4.7)
-    oauth2 (0.9.4)
+    oauth2 (1.0.0)
       faraday (>= 0.8, < 0.10)
       jwt (~> 1.0)
       multi_json (~> 1.3)
       multi_xml (~> 0.5)
       rack (~> 1.2)
     oj (2.9.9)
-    omniauth (1.2.1)
-      hashie (>= 1.2, < 3)
+    omniauth (1.2.2)
+      hashie (>= 1.2, < 4)
       rack (~> 1.0)
     omniauth-facebook (1.6.0)
       omniauth-oauth2 (~> 1.1)
     omniauth-github (1.1.2)
       omniauth (~> 1.0)
       omniauth-oauth2 (~> 1.1)
-    omniauth-google-oauth2 (0.2.4)
-      omniauth (~> 1.0)
+    omniauth-google-oauth2 (0.2.5)
+      omniauth (> 1.0)
       omniauth-oauth2 (~> 1.1)
     omniauth-linkedin (0.2.0)
       omniauth-oauth (~> 1.0)
     omniauth-oauth (1.0.1)
       oauth
       omniauth (~> 1.0)
-    omniauth-oauth2 (1.1.2)
+    omniauth-oauth2 (1.2.0)
       faraday (>= 0.8, < 0.10)
       multi_json (~> 1.3)
-      oauth2 (~> 0.9.3)
+      oauth2 (~> 1.0)
       omniauth (~> 1.2)
     omniauth-twitter (1.0.1)
       multi_json (~> 1.3)
@@ -215,29 +187,10 @@ GEM
     pg (0.17.1)
     phantomjs (1.9.7.1)
     polyglot (0.3.5)
-    posix-spawn (0.3.8)
-    pry (0.9.12.6)
-      coderay (~> 1.0)
-      method_source (~> 0.8)
+    pry (0.10.0)
+      coderay (~> 1.1.0)
+      method_source (~> 0.8.1)
       slop (~> 3.4)
-    pry-debugger (0.2.3)
-      debugger (~> 1.3)
-      pry (>= 0.9.10, < 0.11.0)
-    pry-doc (0.4.6)
-      pry (>= 0.9)
-      yard (>= 0.8)
-    pry-git (0.2.3)
-      diffy
-      grit
-      pry (>= 0.9.8)
-    pry-rails (0.3.2)
-      pry (>= 0.9.10)
-    pry-remote (0.1.8)
-      pry (~> 0.9)
-      slop (~> 3.0)
-    pry-stack_explorer (0.4.9.1)
-      binding_of_caller (>= 0.7)
-      pry (>= 0.9.11)
     rabl (0.10.1)
       activesupport (>= 2.3.14)
     rack (1.5.2)
@@ -273,21 +226,20 @@ GEM
     redis (3.1.0)
     redis-namespace (1.5.0)
       redis (~> 3.0, >= 3.0.4)
-    request_store (1.0.6)
     rspec (3.0.0)
       rspec-core (~> 3.0.0)
       rspec-expectations (~> 3.0.0)
       rspec-mocks (~> 3.0.0)
     rspec-collection_matchers (1.0.0)
       rspec-expectations (>= 2.99.0.beta1)
-    rspec-core (3.0.2)
+    rspec-core (3.0.3)
       rspec-support (~> 3.0.0)
-    rspec-expectations (3.0.2)
+    rspec-expectations (3.0.3)
       diff-lcs (>= 1.2.0, < 2.0)
       rspec-support (~> 3.0.0)
-    rspec-mocks (3.0.2)
+    rspec-mocks (3.0.3)
       rspec-support (~> 3.0.0)
-    rspec-rails (3.0.1)
+    rspec-rails (3.0.2)
       actionpack (>= 3.0)
       activesupport (>= 3.0)
       railties (>= 3.0)
@@ -295,7 +247,9 @@ GEM
       rspec-expectations (~> 3.0.0)
       rspec-mocks (~> 3.0.0)
       rspec-support (~> 3.0.0)
-    rspec-support (3.0.2)
+    rspec-support (3.0.3)
+    ruby-debug-ide (0.4.22)
+      rake (>= 0.8.1)
     rubyzip (1.1.6)
     sass (3.2.19)
     sass-rails (4.0.3)
@@ -311,7 +265,7 @@ GEM
       multi_json (~> 1.0)
       rubyzip (~> 1.0)
       websocket (~> 1.0.4)
-    shoulda-matchers (2.6.1)
+    shoulda-matchers (2.6.2)
       activesupport (>= 3.0.0)
     sidekiq (3.2.1)
       celluloid (>= 0.15.2)
@@ -319,12 +273,12 @@ GEM
       json
       redis (>= 3.0.6)
       redis-namespace (>= 1.3.1)
-    simplecov (0.8.2)
+    simplecov (0.9.0)
       docile (~> 1.1.0)
       multi_json
       simplecov-html (~> 0.8.0)
     simplecov-html (0.8.0)
-    slop (3.5.0)
+    slop (3.6.0)
     spring (1.1.3)
     spring-commands-rspec (1.0.2)
       spring (>= 0.9.1)
@@ -348,7 +302,7 @@ GEM
       coffee-rails
     tzinfo (1.2.1)
       thread_safe (~> 0.1)
-    uglifier (2.5.1)
+    uglifier (2.5.3)
       execjs (>= 0.3.0)
       json (>= 1.8.0)
     unicorn (4.8.3)
@@ -360,28 +314,28 @@ GEM
     websocket (1.0.7)
     xpath (2.0.0)
       nokogiri (~> 1.3)
-    yard (0.8.7.4)
 
 PLATFORMS
   ruby
 
 DEPENDENCIES
+  autoprefixer-rails
   bootstrap-sass
   capybara
   codeclimate-test-reporter
   coffee-rails (~> 4.0.0)
   compass-rails
   database_cleaner
+  debase
   devise
   eco
   factory_girl_rails
   faker
   figaro
-  gon
+  gon (= 5.0.4)
   guard-rspec
   haml
   jasmine-rails
-  jazz_hands
   jbuilder (~> 2.0)
   jquery-rails
   js-routes
@@ -394,17 +348,13 @@ DEPENDENCIES
   omniauth-linkedin
   omniauth-twitter
   pg
-  pry
-  pry-debugger
-  pry-rails
-  pry-remote
-  pry-stack_explorer
   rabl
   rails (= 4.1.1)
   rails_12factor
   redis
   rspec-collection_matchers
   rspec-rails
+  ruby-debug-ide
   sass-rails (~> 4.0.3)
   sdoc (~> 0.4.0)
   selenium-webdriver

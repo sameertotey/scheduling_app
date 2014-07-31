@@ -36,9 +36,6 @@ gem 'unicorn'
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
-# Use debugger
-# gem 'debugger', group: [:development, :test]
-
 gem 'rails_12factor', group: :production
 
 gem 'pg'
@@ -52,11 +49,14 @@ gem 'omniauth-linkedin'
 gem 'omniauth-github'
 gem 'omniauth-google-oauth2'
 group :development do
-  gem 'pry-rails'
-  gem 'pry'
-  gem 'pry-remote'
-  gem 'pry-stack_explorer'
-  gem 'pry-debugger'
+  gem 'debase'
+  gem 'ruby-debug-ide'
+  # gem 'pry-rails'
+  # gem 'pry'
+  # gem 'pry-remote'
+  # gem 'pry-nav'
+  # gem 'pry-stack_explorer'
+  # gem 'pry-byebug'
 end
 group :development, :test do
   gem 'factory_girl_rails'
@@ -64,7 +64,7 @@ group :development, :test do
   gem 'rspec-collection_matchers'
   gem 'spring-commands-rspec'
   gem 'guard-rspec'
-  gem 'jazz_hands'
+  # gem 'jazz_hands'
   gem 'jasmine-rails'
 end
 group :test do
@@ -79,10 +79,11 @@ end
 gem 'eco'
 gem 'compass-rails'
 gem 'bootstrap-sass'
+gem 'autoprefixer-rails'
 
 gem 'rabl'
 gem 'oj'
-gem 'gon'
+gem 'gon', '5.0.4'
 gem 'js-routes'
 
 gem "codeclimate-test-reporter", group: :test, require: nil

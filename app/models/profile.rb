@@ -11,7 +11,7 @@ class Profile < ActiveRecord::Base
       description: auth["info"]["description"],
       phone: auth["info"]["phone"],
       location: auth["info"]["location"],
-      urls: auth["info"]["urls"],
+      # urls: auth["info"]["urls"],
       image_loc: auth["info"]["image"],
       role: "default",
       initials: "XX"}
