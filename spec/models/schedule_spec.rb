@@ -1,6 +1,13 @@
 require 'spec_helper'
 
 describe Schedule do
+  def create_four_assignees
+    (1..4).each do
+      user1 = FactoryGirl.create(:user)
+      FactoryGirl.create(:profile, user: user1, role: 'assignee')
+    end
+  end
+
   context "get_events" do
     it "does not return non info events" do
       event = FactoryGirl.create(:event)
@@ -31,34 +38,40 @@ describe Schedule do
       expect(Event.first.user_id).to eq(nil)
     end
 
-    it "does not return non info events" do
+    before :each do
       holidays = Holiday.create([
         {day_str: '01-01', description: 'January 1st, New years day'},
         {day_str: '05-W-1-0', description: 'Last Monday of May, Memorial day'},
-        {day_str: '07-04', description: 'July 4th, Inddependce day'},
+        {day_str: '07-04', description: 'July 4th, Independence day'},
         {day_str: '09-W+1-0', description: 'First Monday of September, Labor day'},
         {day_str: '11-W+4-3', description: 'Fourth Thursday in November, Thanksgiving day'},
         {day_str: '12-24', description: 'December 24, Christmas eve'},
         {day_str: '12-25', description: 'December 25, Christmas day'}
-        ])  
+                                ])
       app_setting = AppSetting.create({num_docs_friday: 1,
         max_num_full_days: 2,
         max_initial_shifts: 5,
         friday_full_shift: true})
-      expect(Schedule.make_events(2014, 7).count).to eq 90
-      expect(Schedule.make_events(2014, 8).count).to eq 84
-      expect(Schedule.make_events(2014, 9).count).to eq 84
-      expect(Schedule.make_events(2014, 10).count).to eq 90
-      expect(Schedule.make_events(2014, 11).count).to eq 78
-      expect(Schedule.make_events(2014, 12).count).to eq 84
-      expect(Schedule.make_events(2014, 6).count).to eq 84
-      expect(Schedule.make_events(2014, 5).count).to eq 84 
+    end
+    it "makes all events for a month" do
+      Schedule.make_events(2014, 7)
+      expect(Event.all.count).to eq 90
+    end
+    it 'makes all events for another month' do
+      Schedule.make_events(2014, 8)
+      expect(Event.count).to eq 84
+      # expect(Schedule.make_events(2014, 9).count).to eq 84
+      # expect(Schedule.make_events(2014, 10).count).to eq 90
+      # expect(Schedule.make_events(2014, 11).count).to eq 78
+      # expect(Schedule.make_events(2014, 12).count).to eq 84
+      # expect(Schedule.make_events(2014, 6).count).to eq 84
+      # expect(Schedule.make_events(2014, 5).count).to eq 84
     end
 
   end
 
   context "assign_yes_to_slot" do
-    it "assigns a yes request to a user whenever possible" do
+    it "attempts to assign a yes request to a user whenever possible" do
       allow(Event).to receive(:assign_user)
       user = FactoryGirl.create(:user)
       event_type_info = FactoryGirl.create(:event_type, name: "info")
@@ -66,7 +79,25 @@ describe Schedule do
       event_yes_assigned = FactoryGirl.create(:event, date: Date.new(2014,7,3), shift: 1, user: user, event_type: event_type_yes)
       event_info_unassigned = FactoryGirl.create(:event, date: Date.new(2014,7,3), shift: 1, comment: "Dr1", user: nil, event_type: event_type_info)
       Schedule.assign_yes_to_slot(event_yes_assigned)
-      expect(Event).to have_received(:assign_user)      
+      expect(Event).to have_received(:assign_user).with(event_info_unassigned, user)
+    end
+
+    it "assigns a yes request to a user whenever possible" do
+      allow(Event).to receive(:assign_user).and_call_original
+      user1 = FactoryGirl.create(:user)
+      user2 = FactoryGirl.create(:user)
+      user3 = FactoryGirl.create(:user)
+      event_type_info = FactoryGirl.create(:event_type, name: "info")
+      event_type_yes = FactoryGirl.create(:event_type, name: "yes")
+      event_yes_assigned1 = FactoryGirl.create(:event, date: Date.new(2014, 7, 3), shift: 1, user: user1, event_type: event_type_yes)
+      event_yes_assigned2 = FactoryGirl.create(:event, date: Date.new(2014, 7, 3), shift: 1, user: user2, event_type: event_type_yes)
+      event_yes_assigned3 = FactoryGirl.create(:event, date: Date.new(2014, 7, 3), shift: 1, user: user3, event_type: event_type_yes)
+      event_info_unassigned1 = FactoryGirl.create(:event, date: Date.new(2014, 7, 3), shift: 1, comment: "Dr1", user: nil, event_type: event_type_info)
+      event_info_unassigned2 = FactoryGirl.create(:event, date: Date.new(2014, 7, 3), shift: 1, comment: "Dr2", user: nil, event_type: event_type_info)
+      Schedule.assign_yes_to_slot(event_yes_assigned1)
+      Schedule.assign_yes_to_slot(event_yes_assigned2)
+      Schedule.assign_yes_to_slot(event_yes_assigned3)
+      expect(Event).to have_received(:assign_user).twice
     end
   end
 
@@ -98,7 +129,7 @@ describe Schedule do
 
   context "assign_wednesdays" do
     before :each do
-      users = FactoryGirl.create_list(:user, 4)
+      create_four_assignees
       event_type_info = FactoryGirl.create(:event_type, name: "info")
       event_type_yes = FactoryGirl.create(:event_type, name: "yes")
       event1 = FactoryGirl.create(:event, date: Date.new(2014,7,2), shift: 1, comment: "Dr1", user: nil, event_type: event_type_info)
@@ -125,10 +156,10 @@ describe Schedule do
     it "assigns events for a date to all users expect user who has declined the shifts" do
       expect(Event.unassigned.count).to eq 4
       event_type_no = FactoryGirl.create(:event_type, name: "no")
-      FactoryGirl.create(:event, date: Date.new(2014,7,2), shift: 1, comment: "Dr1", user: User.first, event_type: event_type_no)
-      FactoryGirl.create(:event, date: Date.new(2014,7,2), shift: 1, comment: "Dr2", user: User.first, event_type: event_type_no)
-      FactoryGirl.create(:event, date: Date.new(2014,7,2), shift: 2, comment: "Dr1", user: User.first, event_type: event_type_no)
-      FactoryGirl.create(:event, date: Date.new(2014,7,2), shift: 2, comment: "Dr2", user: User.first, event_type: event_type_no)
+      FactoryGirl.create(:event, date: Date.new(2014, 7, 2), shift: 1, user: User.first, event_type: event_type_no)
+      FactoryGirl.create(:event, date: Date.new(2014, 7, 2), shift: 1, user: User.first, event_type: event_type_no)
+      FactoryGirl.create(:event, date: Date.new(2014, 7, 2), shift: 2, user: User.first, event_type: event_type_no)
+      FactoryGirl.create(:event, date: Date.new(2014, 7, 2), shift: 2, user: User.first, event_type: event_type_no)
 
       Schedule.assign_round_robin_for_date(Date.new(2014,7,2))
       expect(Event.unassigned.count).to eq 0
@@ -138,7 +169,7 @@ describe Schedule do
 
   context "assign_fridays" do
     before :each do
-      users = FactoryGirl.create_list(:user, 4)
+      create_four_assignees
       event_type_info = FactoryGirl.create(:event_type, name: "info")
       event_type_yes = FactoryGirl.create(:event_type, name: "yes")
       event1 = FactoryGirl.create(:event, date: Date.new(2014,7,11), shift: 1, comment: "Dr1", user: nil, event_type: event_type_info)
@@ -157,7 +188,7 @@ describe Schedule do
 
   context "assign_saturdays" do
     before :each do
-      users = FactoryGirl.create_list(:user, 4)
+      create_four_assignees
       event_type_info = FactoryGirl.create(:event_type, name: "info")
       event_type_yes = FactoryGirl.create(:event_type, name: "yes")
       event1 = FactoryGirl.create(:event, date: Date.new(2014,7,12), shift: 1, comment: "Dr1", user: nil, event_type: event_type_info)
@@ -174,7 +205,7 @@ describe Schedule do
 
   context "assign_remainder" do
     before :each do
-      users = FactoryGirl.create_list(:user, 4)
+      create_four_assignees
       event_type_info = FactoryGirl.create(:event_type, name: "info")
       event1 = FactoryGirl.create(:event, date: Date.new(2014,7,15), shift: 1, comment: "Dr1", user: nil, event_type: event_type_info)
       event2 = FactoryGirl.create(:event, date: Date.new(2014,7,15), shift: 2, comment: "Dr2", user: nil, event_type: event_type_info)
@@ -190,7 +221,7 @@ describe Schedule do
 
   context "assign_full_days" do
     it "calls assign_round_robin_for_date" do
-      users = FactoryGirl.create_list(:user, 4)
+      create_four_assignees
       event_type_info = FactoryGirl.create(:event_type, name: "info")
       event_type_yes = FactoryGirl.create(:event_type, name: "yes")
       event1 = FactoryGirl.create(:event, date: Date.new(2014,7,2), shift: 1, comment: "Dr1", user: nil, event_type: event_type_info)
@@ -218,11 +249,26 @@ describe Schedule do
 
   context "get_assignees" do
     before :each do
-      users = FactoryGirl.create_list(:user, 4)
+      @user1 = FactoryGirl.create(:user)
+      @profile1 = FactoryGirl.create(:profile, user: @user1, role: 'assignee')
     end
 
-    it "returns all assignees" do
-      expect(Schedule.get_assignees.count).to eq 4
+    it "returns correct assignee" do
+      expect(Schedule.get_assignees.count).to eq 1
+      expect(Schedule.get_assignees).to eq [@user1]
+    end
+    it "does not return in-correct assignee" do
+      @profile1.role = 'role'
+      @profile1.save
+      expect(Schedule.get_assignees.count).to eq 0
+    end
+
+    it "returns multiple assignees" do
+      user2 = FactoryGirl.create(:user)
+      profile2 = FactoryGirl.create(:profile, user: user2, role: 'assignee')
+
+      expect(Schedule.get_assignees.count).to eq 2
+      expect(Schedule.get_assignees).to eq [@user1, user2]
     end
   end
 
@@ -233,6 +279,12 @@ describe Schedule do
 
     it "returns single assignee" do
       expect(Schedule.get_next_assignee(User.all)).to eq [@user1]
+    end
+  end
+
+  context 'clean assignments' do
+    before :each do
+
     end
   end
 end

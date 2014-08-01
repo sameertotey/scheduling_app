@@ -46,17 +46,17 @@ class Event < ActiveRecord::Base
   end  
 
   def conflicting_event_types
-    if (event_type.name == "no") && Event.find_by(user: user, date: date, shift: shift, event_type: EventType.find_by(name: "yes"))
+    if (event_type.name == 'no') && Event.find_by(user: user, date: date, shift: shift, event_type: EventType.find_by(name: 'yes'))
       errors.add(:event_type, "there's an existing yes event, can't be a conflicting event type")
-    elsif (event_type.name == "yes") && Event.find_by(user: user, date: date, shift: shift, event_type: EventType.find_by(name: "no"))
+    elsif (event_type.name == 'yes') && Event.find_by(user: user, date: date, shift: shift, event_type: EventType.find_by(name: 'no'))
       errors.add(:event_type, "there's an existing no event, can't be a conflicting event type")
-    elsif (event_type.name == "info") && Event.find_by(user: user, date: date, shift: shift, event_type: EventType.find_by(name: "no"))
+    elsif (event_type.name == 'info') && Event.find_by(user: user, date: date, shift: shift, event_type: EventType.find_by(name: 'no'))
       errors.add(:event_type, "there's an existing no event, can't assign")
     end
   end
 
   def conflicting_shifts
-    if user && (event_type.name == "info") && Event.find_by(user: user, date: date, shift: shift, event_type: EventType.find_by(name: "info"))
+    if user && (event_type.name == 'info') && Event.find_by(user: user, date: date, shift: shift, event_type: EventType.find_by(name: 'info'))
       errors.add(:shift, "there's an existing shift for same user, can't assign a conflicting shift")
     end
   end

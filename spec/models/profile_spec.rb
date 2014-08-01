@@ -16,4 +16,18 @@ describe Profile do
 
   it { should respond_to(:user) }
 
+  describe "with role scope" do
+    before :each do
+      @profile1 = FactoryGirl.create(:profile)
+    end
+
+    it "finds the role with correct scope" do
+      expect(Profile.with_role("role1")).to eq([])
+      expect(Profile.with_role("role")).to eq([@profile1])
+      @profile1.role = "role1"
+      @profile1.save
+      expect(Profile.with_role("role1")).to eq([@profile1])
+    end
+  end
+
 end

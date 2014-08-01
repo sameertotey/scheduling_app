@@ -7,7 +7,7 @@ FactoryGirl.define do
     description  "desc"
     phone        "123-456-0789"
     location     "location"
-    urls          "http:/:sameertotey.com"
+    urls "http://www.sameertotey.com"
     image_loc     "my_image"
     role          "role"
     initials      "AB"  
