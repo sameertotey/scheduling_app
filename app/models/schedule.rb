@@ -31,19 +31,13 @@ class Schedule
   end
 
   def self.make_assignment(year, month)
-    assignees = get_assignees
     range = get_full_month(year, month)
-    Event.get_events_range_type(range, YES).each do |event|
-        assign_yes_to_slot(event)
-      end
-      assign_wednesdays(year, month)
-      if AppSetting.first.num_docs_friday == 1
-        assign_fridays(year, month)
-      end
-      assign_saturdays(year, month)
-      assign_full_days(range)
-    # assign_full_days(range)
-      assign_remainder(range)
+    Event.get_events_range_type(range, YES).each { |event| assign_yes_to_slot(event) }
+    assign_wednesdays(year, month)
+    assign_fridays(year, month) if AppSetting.first.num_docs_friday == 1
+    assign_saturdays(year, month)
+    assign_full_days(range)
+    assign_remainder(range)
   end
 
   private
