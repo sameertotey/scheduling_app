@@ -275,10 +275,11 @@ describe Schedule do
   context "get_next_assignee" do
     before :each do
       @user1 = FactoryGirl.create(:user)
+      @range = Date.new(2014, 7, 1)..Date.new(2014, 7, -1)
     end
 
     it "returns single assignee" do
-      expect(Schedule.get_next_assignee(User.all)).to eq [@user1]
+      expect(Schedule.get_next_assignee(User.all, @range)).to eq [@user1]
     end
   end
 

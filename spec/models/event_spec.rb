@@ -5,8 +5,8 @@ describe Event do
 
   it { should belong_to(:event_type) }
 
-  context "unassigned?" do
-    it "reports assigned status" do
+  context 'unassigned?' do
+    it 'reports assigned status' do
       event = Event.new(user: nil)
       expect(event.unassigned?).to eq true
       expect(event.assigned?).to be_falsey
@@ -76,12 +76,46 @@ describe Event do
       expect(Event.get_events_range_type(@range, "info").count).to eq 1
       expect(Event.get_events_range_type(@range, "info")).to eq [@event]
     end
-    it "does not find events with incorrect type" do
+    it 'does not find events with incorrect type' do
       @event.date = Date.new(2014, 8, 15)
       @event.event_type = @event_type
       @event.save
       expect(Event.get_events_range_type(@range, "no").count).to eq 0
       expect(Event.get_events_range_type(@range, "no")).to eq []
+    end
+  end
+
+  context 'count_for_user_in_range' do
+    before :each do
+      @user = FactoryGirl.create(:user)
+      @event = FactoryGirl.create(:event)
+      @range = Date.new(2014, 8, 1)..Date.new(2014, 8, -1)
+      @event_type = FactoryGirl.create(:event_type, name: "info")
+    end
+
+    it 'does not count events that are not initialized' do
+      expect(Event.count_for_user_in_range(@user, @range)).to eq 0
+    end
+
+    it 'does not count events that are not assigned' do
+      @event.date = Date.new(2014, 8, 15)
+      @event.event_type = @event_type
+      expect(Event.count_for_user_in_range(@user, @range)).to eq 0
+    end
+
+    it 'does not count events not of info type' do
+      @event.date = Date.new(2014, 8, 15)
+      @event.user = @user
+      @event.save
+      expect(Event.count_for_user_in_range(@user, @range)).to eq 0
+    end
+
+    it 'counts event in the middle of the range with correct type' do
+      @event.date = Date.new(2014, 8, 15)
+      @event.event_type = @event_type
+      @event.user = @user
+      @event.save
+      expect(Event.count_for_user_in_range(@user, @range)).to eq 1
     end
   end
 

@@ -30,7 +30,6 @@ class Schedule
     make_assignment(year, month)
   end
 
-
   def self.make_assignment(year, month)
     assignees = get_assignees
     range = get_full_month(year, month)
@@ -43,7 +42,7 @@ class Schedule
       end
       assign_saturdays(year, month)
       assign_full_days(range)
-      assign_full_days(range)
+    # assign_full_days(range)
       assign_remainder(range)
   end
 
@@ -145,7 +144,7 @@ class Schedule
     return if assignees.empty?
     events = Event.get_events_range_type(range, INFO).to_a
     events.each do |event|
-      users = get_next_assignee assignees
+      users = get_next_assignee assignees, range
       sorted_users = users.cycle
       attempts = 1
       until event.assigned? || attempts > assignees.count
@@ -175,10 +174,10 @@ class Schedule
     end
   end
 
-  def self.get_next_assignee(assignees)
+  def self.get_next_assignee(assignees, range)
     assignments = {}
-    assignees.each do |assignee| 
-      assignments[assignee] = assignee.events ? assignee.events.count : 0
+    assignees.each do |assignee|
+      assignments[assignee] = Event.count_for_user_in_range(assignee, range)
     end
     assignments.sort.map{ |pair| pair[0]}
   end

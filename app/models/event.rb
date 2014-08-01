@@ -12,6 +12,11 @@ class Event < ActiveRecord::Base
     where({date: range})
   end
 
+  def self.count_for_user_in_range(user, range)
+    event_type = EventType.find_by(name: 'info')
+    where({date: range, user: user, event_type: event_type}).size
+  end
+
   def unassigned?
     self.user_id == nil
   end
