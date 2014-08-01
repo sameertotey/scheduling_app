@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component name="dataSourceStorage">
+  <data-source source="LOCAL" name="Rails scheduling_app: default" uuid="a4cc2936-3bc3-40d6-a041-43ee8acd8d0f">
+    <database-info product="" version="" jdbc-version="" driver-name="" driver-version=""/>
+  </data-source>
+  <data-source source="LOCAL" name="Rails scheduling_app: development" uuid="7c38131f-53ce-41e9-aef8-969f7029ba92">
+    <database-info product="" version="" jdbc-version="" driver-name="" driver-version=""/>
+  </data-source>
+  <data-source source="LOCAL" name="Rails scheduling_app: test" uuid="cd1d2fde-6aea-4ff5-b7b7-50166e9a0cc3">
+    <database-info product="" version="" jdbc-version="" driver-name="" driver-version=""/>
+  </data-source>
+  <data-source source="LOCAL" name="Rails scheduling_app: production" uuid="296ad3b1-e6e7-443c-b3f7-86c8dfa45e71">
+    <database-info product="" version="" jdbc-version="" driver-name="" driver-version=""/>
+  </data-source>
+</component>

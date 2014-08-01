@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DataSourceManagerImpl" format="xml" hash="1007849262">
+    <data-source source="LOCAL" name="Rails scheduling_app: default" uuid="a4cc2936-3bc3-40d6-a041-43ee8acd8d0f">
+      <driver-ref>postgresql</driver-ref>
+      <jdbc-driver>org.postgresql.Driver</jdbc-driver>
+      <jdbc-url>jdbc:postgresql:sameertotey</jdbc-url>
+      <user-name>sameertotey</user-name>
+      <libraries />
+    </data-source>
+    <data-source source="LOCAL" name="Rails scheduling_app: development" uuid="7c38131f-53ce-41e9-aef8-969f7029ba92">
+      <driver-ref>postgresql</driver-ref>
+      <jdbc-driver>org.postgresql.Driver</jdbc-driver>
+      <jdbc-url>jdbc:postgresql://127.0.0.1/scheduling_app</jdbc-url>
+      <user-name>sameertotey</user-name>
+      <libraries />
+    </data-source>
+    <data-source source="LOCAL" name="Rails scheduling_app: test" uuid="cd1d2fde-6aea-4ff5-b7b7-50166e9a0cc3">
+      <driver-ref>postgresql</driver-ref>
+      <jdbc-driver>org.postgresql.Driver</jdbc-driver>
+      <jdbc-url>jdbc:postgresql://127.0.0.1/scheduling_app_test</jdbc-url>
+      <user-name>postgres</user-name>
+      <libraries />
+    </data-source>
+    <data-source source="LOCAL" name="Rails scheduling_app: production" uuid="296ad3b1-e6e7-443c-b3f7-86c8dfa45e71">
+      <driver-ref>postgresql</driver-ref>
+      <jdbc-driver>org.postgresql.Driver</jdbc-driver>
+      <jdbc-url>jdbc:postgresql:scheduling_app</jdbc-url>
+      <user-name>sameertotey</user-name>
+      <libraries />
+    </data-source>
+  </component>
+</project>
+
