@@ -10,6 +10,7 @@ describe Schedule do
 
   context "get_events" do
     it "does not return non info events" do
+
       event = FactoryGirl.create(:event)
       event.date = Date.new(2014, 8, 15)
       event.save
@@ -272,14 +273,24 @@ describe Schedule do
     end
   end
 
-  context "get_next_assignee" do
+  context :sort_assignees_for_range do
     before :each do
-      @user1 = FactoryGirl.create(:user)
+      create_four_assignees
+      @assignees = Schedule.get_assignees
       @range = Date.new(2014, 7, 1)..Date.new(2014, 7, -1)
     end
 
-    it "returns single assignee" do
-      expect(Schedule.get_next_assignee(User.all, @range)).to eq [@user1]
+    it 'returns array of assignee if there are not events assigned' do
+      expect(Schedule.sort_assignee_for_range(@assignees, @range).count).to eq 4
+      end
+
+    it 'returns array sorted according to the number of events assigned' do
+      allow(Event).to receive(:count_for_user_in_range).and_return(4, 1, 2, 7)
+      sorted = Schedule.sort_assignee_for_range(@assignees, @range)
+      expect(sorted[0]).to eq @assignees[1]
+      expect(sorted[1]).to eq @assignees[2]
+      expect(sorted[2]).to eq @assignees[0]
+      expect(sorted[3]).to eq @assignees[3]
     end
   end
 

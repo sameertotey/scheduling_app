@@ -46,11 +46,12 @@
           end: moment(element.date) + offset + six_hours
           url: if element.user.id == App.currentUser.id then "#" + Routes.edit_event_path(element.id) else "#" + Routes.event_path(element.id)
           title: element.profile.initials + ' ' + element.event_type.name
-          class: element.profile.css_class + ' ' + element.event_type.css_class
+          class: element.event_type.css_class
           display: element.event_type.name == "info"
           comment: element.comment
           shift: element.shift
           initials: element.profile.initials
+          profile_class: element.profile.css_class
 
 
     onShow: ->

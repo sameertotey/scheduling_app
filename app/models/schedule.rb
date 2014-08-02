@@ -88,7 +88,7 @@ class Schedule
     return if assignees.empty?
     users = assignees.shuffle.cycle
     dates.each do |date|
-      events = Event.get_events_range_type(date, INFO).to_a
+      events = Event.get_events_range_type(date, INFO).unassigned.to_a
       events.each do |event|
         attempts = 1
         until event.assigned? || attempts > assignees.count
@@ -105,7 +105,7 @@ class Schedule
     return if assignees.empty?
     users = assignees.shuffle.cycle
     dates.each do |date|
-      events = Event.get_events_range_type(date, INFO).to_a
+      events = Event.get_events_range_type(date, INFO).unassigned.to_a
       events.each do |event|
         attempts = 1
         until event.assigned? || attempts > assignees.count
@@ -119,15 +119,15 @@ class Schedule
   def self.assign_full_days(range)
     assignees = get_assignees
     return if assignees.empty?
-    users = assignees.shuffle.cycle
     range.each do |date|
       events = Event.get_events_range_type(date, INFO).unassigned.to_a
       event_shift1, event_shift2 = events.partition {|event| event.shift == 1}
-      unless (event_shift1.empty? || event_shift2.empty?)
+      unless event_shift1.empty? || event_shift2.empty?
         begin
+          users = get_next_user_for_assignment(assignees, range)
           Event.assign_user_to_list([event_shift1.first, event_shift2.first], users.next)
         rescue
-          Rails.logger.warn "full day assignment to a user failed!"
+          Rails.logger.warn 'full day assignment to a user failed!'
         end
       end
     end    
@@ -136,23 +136,27 @@ class Schedule
   def self.assign_remainder(range)
     assignees = get_assignees
     return if assignees.empty?
-    events = Event.get_events_range_type(range, INFO).to_a
+    events = Event.get_events_range_type(range, INFO).unassigned.to_a
     events.each do |event|
-      users = get_next_assignee assignees, range
-      sorted_users = users.cycle
+      users = get_next_user_for_assignment(assignees, range)
       attempts = 1
       until event.assigned? || attempts > assignees.count
-        event.user = nil unless Event.assign_user(event, sorted_users.next)
+        event.user = nil unless Event.assign_user(event, users.next)
         attempts += 1
       end    
     end
+  end
+
+  def self.get_next_user_for_assignment(assignees, range)
+    users = sort_assignee_for_range assignees, range
+    sorted_users = users.cycle
   end
 
   def self.assign_round_robin_for_date(date)
     assignees = get_assignees
     return if assignees.empty?
     users = assignees.shuffle.cycle
-    events = Event.get_events_range_type(date, INFO).to_a
+    events = Event.get_events_range_type(date, INFO).unassigned.to_a
     events.each do |event|
       attempts = 1
       until event.assigned? || attempts > assignees.count
@@ -168,12 +172,12 @@ class Schedule
     end
   end
 
-  def self.get_next_assignee(assignees, range)
+  def self.sort_assignee_for_range(assignees, range)
     assignments = {}
     assignees.each do |assignee|
       assignments[assignee] = Event.count_for_user_in_range(assignee, range)
     end
-    assignments.sort.map{ |pair| pair[0]}
+    assignments.sort_by{ |_key, value| value}.map{|pair| pair[0]}
   end
 
   def self.assign_yes_to_slot(event)

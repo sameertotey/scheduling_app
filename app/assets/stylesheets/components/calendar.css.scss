@@ -536,8 +536,6 @@ span.r11{
   position: absolute;
   top: 0;
   left: 0;
-  color: orangered;
-  background-color: black;
   width: 50%;
   height: 50%;
 }
@@ -546,8 +544,6 @@ span.r12{
    position: absolute;
    top: 50%;
    left: 0;
-   color: green;
-   background-color: red;
    width: 50%;
    height: 50%;
  }
@@ -556,8 +552,6 @@ span.r21{
   position: absolute;
   top: 0;
   left: 50%;
-  color: blue;
-  background-color: yellow;
   width: 50%;
   height: 50%;
 }
@@ -566,8 +560,25 @@ span.r22{
   position: absolute;
   top: 50%;
   left: 50%;
-  color: yellow;
-  background-color: grey;
   width: 50%;
   height: 50%;
+}
+
+span {
+  &.u1{
+    color: red;
+    background-color: yellowgreen;
+  }
+  &.u2{
+    color: black;
+    background-color: lightyellow;
+  }
+  &.u3{
+     color: navajowhite;
+     background-color: blue;
+   }
+  &.u4{
+      color: green;
+      background-color: red;
+    }
 }

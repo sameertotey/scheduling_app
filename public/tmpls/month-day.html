@@ -12,7 +12,8 @@
     <div class="events-display" >
       <% _.each(events, function(event) { %>
         <% if (event.display) { %>
-          <span class="<%= event.comment.slice(1) + event.shift %>"> <%= event.initials %> </span>
+          <span class="<%= event.comment.slice(1) + event.shift + " " + event.profile_class %>">
+             <a href="<%= event.url ? event.url : 'javascript:void(0)' %>"><%= event.initials %></a> </span>
   	    <% }; %>
       <% }); %>
     </div>
