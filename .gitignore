@@ -21,3 +21,9 @@
 # Ignore the coverage folder
 
 /coverage
+
+# Ignore temp generated files
+
+**/*.js.js
+**/*.js.map
+

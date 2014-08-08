@@ -8,8 +8,8 @@
 
         @layout.on "show", =>
           @showPanel events
-          @showEvents events	
-          window.events = events  
+          @showEvents events
+          @showEventsTable events
         App.mainRegion.show @layout
   		
 		showPanel: (events) ->
@@ -19,7 +19,15 @@
 		showEvents: (events) ->
       @eventsView = @getEventsView events
       @layout.eventsRegion.show @eventsView
-		
+
+    showEventsTable: (events) ->
+      @eventsTableView = @getEventsTableView events
+      @layout.eventsTableRegion.show @eventsTableView
+
+    getEventsTableView: (events) ->
+      new List.EventsTable
+        collection: events
+
 		getEventsView: (events) ->
 			new List.Events
         collection: events

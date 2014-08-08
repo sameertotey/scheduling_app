@@ -18,6 +18,7 @@
 //= require lib/underscore
 //= require lib/calendar
 //= require lib/backbone
+//= require lib/backgrid.js
 //= require lib/backbone.syphon
 //= require lib/marionette
 //= require js-routes

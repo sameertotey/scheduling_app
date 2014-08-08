@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Generated files" type="javaScript">
+    <properties>
+      <sourceFilesUrls>
+        <item url="file://$PROJECT_DIR$/app/assets/javascripts/backbone/apps/events/list/list_view.js.js" />
+      </sourceFilesUrls>
+    </properties>
+    <CLASSES>
+      <root url="file://$PROJECT_DIR$/app/assets/javascripts/backbone/apps/events/list/list_view.js.js" />
+    </CLASSES>
+    <SOURCES />
+  </library>
+</component>
