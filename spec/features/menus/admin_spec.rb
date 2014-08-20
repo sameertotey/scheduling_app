@@ -12,6 +12,7 @@ feature 'Admin Menu Display', :devise do
     user = FactoryGirl.create(:admin)
     login_as(user, :scope => :user)
     visit root_path
+    print page.html
     expect(page).not_to have_selector(:link_or_button, 'Sign in')
     expect(page).not_to have_selector(:link_or_button, 'Sign up')
   end

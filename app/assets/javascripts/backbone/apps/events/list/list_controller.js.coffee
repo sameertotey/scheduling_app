@@ -8,7 +8,7 @@
 
         @layout.on "show", =>
           @showPanel events
-          @showEvents events
+#          @showEvents events
           @showEventsTable events
         App.mainRegion.show @layout
   		
