@@ -91,4 +91,5 @@ gem 'simplecov', :require => false, :group => :test
 
 gem 'sidekiq'
 gem 'redis'
+gem 'poltergeist'
 gem 'capybara-webkit'

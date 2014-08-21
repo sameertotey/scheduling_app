@@ -9,8 +9,13 @@ Warden.test_mode!
 #   So I can close my account
 feature 'User delete', :devise, js: true do
 
+  before(:each) do
+    Capybara.current_driver = :webkit
+  end
+  
   after(:each) do
     Warden.test_reset!
+    Capybara.use_default_driver
   end
 
   # Scenario: User can delete own account
@@ -21,8 +26,9 @@ feature 'User delete', :devise, js: true do
     user = FactoryGirl.create(:user)
     login_as(user, :scope => :user)
     visit edit_user_registration_path(user)
-    click_button 'Cancel my account'
-    page.driver.browser.accept_js_confirms
+    page.accept_confirm do
+      click_button 'Cancel my account'
+    end
     expect(page).to have_content 'Bye! Your account was successfully cancelled. We hope to see you again soon.'
   end
 
