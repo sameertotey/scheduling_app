@@ -12,7 +12,7 @@ feature 'User delete', :devise, js: true do
   before(:each) do
     Capybara.current_driver = :webkit
   end
-  
+
   after(:each) do
     Warden.test_reset!
     Capybara.use_default_driver
